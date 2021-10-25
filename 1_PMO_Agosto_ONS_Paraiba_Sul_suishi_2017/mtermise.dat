@@ -1,0 +1,391 @@
+$version=1
+MOD: 01/08/2021
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+   1 ANGRA 1         1                  640     640       0       0       0               100                                                                        0                                           
+  13 ANGRA 2         1                 1350    1350       0       0       0               100                                                                        0                                           
+ 211 BAIXADA FLU     1                    0     530       0       0       0               100                                                                        0                                           
+  97 CUBATAO         1                 86.4 105.948       0       0       0               100                                                                        0                                           
+  12 CUIABA G CC     1                    0 489.986       0       0       0               100                                                                        0                                           
+ 153 DAIA            1                    0       0     5.1     5.1       0               100                                                                        0                                           
+  65 DO ATLAN_CSA    1               173.13 173.137       0       0       0               100                                                                        0                                           
+ 183 DO ATLANTICO    1                201.5 218.689       0       0       0               100                                                                        0                                           
+ 155 GOIANIA II      1                    0       0       0       0       0               100                                                                        0                                           
+  63 IBIRITE         1                    0 201.524       0       0       0               100                                                                        0                                           
+  54 JUIZ DE FORA    1                    0 82.6366       0       0       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204       0       0       0               100                                                                        0                                           
+ 110 N.PIRATINING    1                    0 417.175       0       0       0               100                                                                        0                                           
+ 171 NORTEFLU-1      1               194.39   194.4       0       0       0               100                                                                        0                                           
+ 172 NORTEFLU-2      1                    0   41.94       0       0       0               100                                                                        0                                           
+ 173 NORTEFLU-3      1                    0   83.88       0       0       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0 52.8419       0       0       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86      50       0    5.48       0               100                                                                        0                                           
+ 182 PALMEIRAS GO    1                    0       0       0       0       0               100                                                                        0                                           
+  50 PIRAT.12 G      1                    0       0    6.57    6.57       0               100                                                                        0                                           
+ 230 PREDILECTA      1                    1       5       0       0       0               100                                                                        0                                           
+   9 R.SILVEIRA      1                    0       0   16.56   16.56       0               100                                                                        0                                           
+  62 SEROPEDICA      1                    0 353.484       0       0       0               100                                                                        0                                           
+   4 ST.CRUZ 34      1                    0       0   24.25   24.25       0               100                                                                        0                                           
+  86 ST.CRUZ NOVA    1                    0     350       0       0       0               100                                                                        0                                           
+ 146 STA VITORIA     1                    0    41.4       0       0       0               100                                                                        0                                           
+ 194 T.NORTE 2       1                    0       0       0       0       0               100                                                                        0                                           
+  90 TERMOMACAE      1                    0 865.548       0       0       0               100                                                                        0                                           
+  47 TERMORIO        1                100.5 522.558       0       0       0               100                                                                        0                                           
+  68 TRES LAGOAS     1                    0  269.99       0       0       0               100                                                                        0                                           
+  49 VIANA           1                    0   174.6       0       0       0               100                                                                        0                                           
+ 334 W. ARJONA       1                    0       0       0       0       0               100                                                                        0                                           
+ 108 XAVANTES        1                    0 53.4996       0       0       0               100                                                                        0                                           
+MOD: 01/09/2021
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  97 CUBATAO         1                 86.4 197.057       0       0       0               100                                                                        0                                           
+  65 DO ATLAN_CSA    1               170.99 170.996       0       0       0               100                                                                        0                                           
+  63 IBIRITE         1                    0 124.775       0       0       0               100                                                                        0                                           
+  54 JUIZ DE FORA    1                    0 84.8041       0       0       0               100                                                                        0                                           
+ 110 N.PIRATINING    1                    0 545.612       0       0       0               100                                                                        0                                           
+ 171 NORTEFLU-1      1                  360     360       0       0       0               100                                                                        0                                           
+ 172 NORTEFLU-2      1                    0      90       0       0       0               100                                                                        0                                           
+ 173 NORTEFLU-3      1                    0    27.9       0       0       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0       0       0       0       0               100                                                                        0                                           
+ 182 PALMEIRAS GO    1                    0 126.403       0       0       0               100                                                                        0                                           
+  62 SEROPEDICA      1                    0 300.848       0       0       0               100                                                                        0                                           
+  90 TERMOMACAE      1                    0 880.965       0       0       0               100                                                                        0                                           
+  47 TERMORIO        1                100.5 899.973       0       0       0               100                                                                        0                                           
+ 334 W. ARJONA       1                    0       0       0       0       0               100                                                                        0                                           
+MOD: 01/10/2021
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  97 CUBATAO         1                 86.4 209.995       0       0       0               100                                                                        0                                           
+  12 CUIABA G CC     1                    0 481.995       0       0       0               100                                                                        0                                           
+  65 DO ATLAN_CSA    1                33.23 33.2514       0       0       0               100                                                                        0                                           
+ 183 DO ATLANTICO    1                201.5 218.736       0       0       0               100                                                                        0                                           
+ 155 GOIANIA II      1                    0 135.797       0       0       0               100                                                                        0                                           
+  63 IBIRITE         1                    0     226       0       0       0               100                                                                        0                                           
+  54 JUIZ DE FORA    1                    0 84.0033       0       0       0               100                                                                        0                                           
+ 110 N.PIRATINING    1                    0 559.971       0       0       0               100                                                                        0                                           
+ 171 NORTEFLU-1      1                  400     400       0       0       0               100                                                                        0                                           
+ 172 NORTEFLU-2      1                    0     100       0       0       0               100                                                                        0                                           
+ 173 NORTEFLU-3      1                    0     200       0       0       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0 125.994       0       0       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19 8.49518       0               100                                                                        0                                           
+ 182 PALMEIRAS GO    1                    0 133.794       0       0       0               100                                                                        0                                           
+ 230 PREDILECTA      1                    1    4.51       0       0       0               100                                                                        0                                           
+  62 SEROPEDICA      1                97.84 360.006       0       0       0               100                                                                        0                                           
+ 146 STA VITORIA     1                    0 39.6488       0       0       0               100                                                                        0                                           
+  90 TERMOMACAE      1                    0 801.932       0       0       0               100                                                                        0                                           
+  47 TERMORIO        1               146.76     895       0       0       0               100                                                                        0                                           
+  68 TRES LAGOAS     1                    0  188.72       0       0       0               100                                                                        0                                           
+  49 VIANA           1                    0 165.992       0       0       0               100                                                                        0                                           
+ 334 W. ARJONA       1                    0       0     2.5     2.5       0               100                                                                        0                                           
+ 108 XAVANTES        1                    0  53.505       0       0       0               100                                                                        0                                           
+MOD: 01/11/2021
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  97 CUBATAO         1                 86.4 178.006       0       0       0               100                                                                        0                                           
+  65 DO ATLAN_CSA    1                94.37 94.3779       0       0       0               100                                                                        0                                           
+ 137 GNA I           1                    0  1338.3       2       2       0               100                                                                        0                                           
+ 182 PALMEIRAS GO    1                    0 136.498       0       0       0               100                                                                        0                                           
+ 230 PREDILECTA      1                    1    4.95       0       0       0               100                                                                        0                                           
+  62 SEROPEDICA      1                97.22 360.006       0       0       0               100                                                                        0                                           
+ 146 STA VITORIA     1                    0 20.0003       0       0       0               100                                                                        0                                           
+  90 TERMOMACAE      1                    0 745.932       0       0       0               100                                                                        0                                           
+  47 TERMORIO        1               145.83 898.108       0       0       0               100                                                                        0                                           
+  68 TRES LAGOAS     1                    0  234.01       0       0       0               100                                                                        0                                           
+MOD: 01/12/2021
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  97 CUBATAO         1                 86.4 169.992       0       0       0               100                                                                        0                                           
+  12 CUIABA G CC     1                    0 326.516       0       0       0               100                                                                        0                                           
+  65 DO ATLAN_CSA    1               150.73  150.74       0       0       0               100                                                                        0                                           
+  15 LINHARES        1                    0 197.574       0       0       0               100                                                                        0                                           
+ 182 PALMEIRAS GO    1                    0 138.798       0       0       0               100                                                                        0                                           
+ 230 PREDILECTA      1                    1       5       0       0       0               100                                                                        0                                           
+  62 SEROPEDICA      1               105.38 360.006       0       0       0               100                                                                        0                                           
+  86 ST.CRUZ NOVA    1                    0  383.85       0       0       0               100                                                                        0                                           
+  90 TERMOMACAE      1                    0 843.352       0       0       0               100                                                                        0                                           
+  47 TERMORIO        1               158.07 947.008       0       0       0               100                                                                        0                                           
+  68 TRES LAGOAS     1                    0  269.99       0       0       0               100                                                                        0                                           
+MOD: 01/01/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+   1 ANGRA 1         1               557.87     640    2.79 12.8318       0               100                                                                        0                                           
+  13 ANGRA 2         1              1202.49    1350    1.15 10.9263       0               100                                                                        0                                           
+ 211 BAIXADA FLU     1                    0     530   12.75 20.5589       0               100                                                                        0                                           
+  97 CUBATAO         1                 86.4     216    5.92 12.7502       0               100                                                                        0                                           
+  12 CUIABA G CC     1                    0       0    9.66 29.7607       0               100                                                                        0                                           
+ 153 DAIA            1                    0       0     5.1 20.8154       0               100                                                                        0                                           
+  65 DO ATLAN_CSA    1                236.1 236.964    0.36    0.36       0               100                                                                        0                                           
+ 183 DO ATLANTICO    1                201.5 218.736    0.36 2.78125       0               100                                                                        0                                           
+ 137 GNA I           1                    0  1338.3       2    3.96       0               100                                                                        0                                           
+ 238 GNA P. ACU 3    1                    0       0     2.5 4.44999       0               100                                                                        0                                           
+ 155 GOIANIA II      1                    0 135.797   13.35 39.5616       0               100                                                                        0                                           
+  63 IBIRITE         1                    0     226    5.36 17.6253       0               100                                                                        0                                           
+  54 JUIZ DE FORA    1                    0   87.05    6.26 9.13782       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19  18.759       0               100                                                                        0                                           
+ 236 MARLIM AZUL     1                    0       0       5    9.75       0               100                                                                        0                                           
+ 110 N.PIRATINING    1                    0 554.937   10.73  26.022       0               100                                                                        0                                           
+ 171 NORTEFLU-1      1                  400     400       0       0       0               100                                                                        0                                           
+ 172 NORTEFLU-2      1                    0     100     4.1 12.9324       0               100                                                                        0                                           
+ 173 NORTEFLU-3      1                    0     200     4.1     4.1       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0  126.78     4.1     4.1       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19    3.19       0               100                                                                        0                                           
+ 182 PALMEIRAS GO    1                    0 140.448   68.23 71.3435       0               100                                                                        0                                           
+  50 PIRAT.12 G      1                    0       0    6.57 17.8564       0               100                                                                        0                                           
+ 230 PREDILECTA      1                    1       5    0.37  5.3515       0               100                                                                        0                                           
+   9 R.SILVEIRA      1                    0       0   16.56  34.775       0               100                                                                        0                                           
+  62 SEROPEDICA      1                98.38   385.9   23.72 29.2427       0               100                                                                        0                                           
+   4 ST.CRUZ 34      1                    0       0   24.25 37.8926       0               100                                                                        0                                           
+  86 ST.CRUZ NOVA    1                    0   412.9    7.33 13.7242       0               100                                                                        0                                           
+ 146 STA VITORIA     1                    0  38.502    1.49     100       0               100                                                                        0                                           
+ 194 T.NORTE 2       1                    0       0       0    0.51       0               100                                                                        0                                           
+  90 TERMOMACAE      1                    0   928.7   10.83 15.9484       0               100                                                                        0                                           
+  47 TERMORIO        1               147.57    1036   14.41 18.2701       0               100                                                                        0                                           
+  68 TRES LAGOAS     1                    0 263.235   13.82 17.9653       0               100                                                                        0                                           
+  49 VIANA           1                    0   174.6    2.42 3.00548       0               100                                                                        0                                           
+ 334 W. ARJONA       1                    0       0     2.5   4.255       0               100                                                                        0                                           
+ 108 XAVANTES        1                    0   53.58    0.22    0.22       0               100                                                                        0                                           
+MOD: 01/02/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 20.5294       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19 17.0242       0               100                                                                        0                                           
+  62 SEROPEDICA      1                    0   385.9   23.72 29.2427       0               100                                                                        0                                           
+  86 ST.CRUZ NOVA    1                    0     500    7.33 13.7242       0               100                                                                        0                                           
+  47 TERMORIO        1               102.38    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/03/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 17.9668       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19    3.19       0               100                                                                        0                                           
+ 146 STA VITORIA     1                    0  38.502    1.49    1.49       0               100                                                                        0                                           
+  47 TERMORIO        1               101.88    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/04/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1               220.35 236.964    0.36 7.00598       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19 19.3068       0               100                                                                        0                                           
+ 173 NORTEFLU-3      1                    0     200     4.1   13.69       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0  126.78     4.1     100       0               100                                                                        0                                           
+  47 TERMORIO        1                100.5    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/05/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1                236.1 236.964    0.36    0.36       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19  18.759       0               100                                                                        0                                           
+ 173 NORTEFLU-3      1                    0     200     4.1     4.1       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0  126.78     4.1     4.1       0               100                                                                        0                                           
+MOD: 01/06/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1               220.35 236.964    0.36 7.00598       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19 18.4949       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19 9.64723       0               100                                                                        0                                           
+MOD: 01/07/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1                236.1 236.964    0.36    0.36       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19  18.759       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19    3.19       0               100                                                                        0                                           
+  68 TRES LAGOAS     1                    0     350   13.82 17.9653       0               100                                                                        0                                           
+MOD: 01/08/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 17.1745       0               100                                                                        0                                           
+MOD: 01/09/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 20.1186       0               100                                                                        0                                           
+MOD: 01/10/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19  18.759       0               100                                                                        0                                           
+ 173 NORTEFLU-3      1                    0     200     4.1 13.3831       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0  126.78     4.1     100       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19 34.4209       0               100                                                                        0                                           
+MOD: 01/11/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 17.6733       0               100                                                                        0                                           
+ 173 NORTEFLU-3      1                    0     200     4.1     4.1       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0  126.78     4.1     4.1       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19    3.19       0               100                                                                        0                                           
+MOD: 01/12/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1               220.87 236.964    0.36 6.78678       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19 20.3338       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19 15.6785       0               100                                                                        0                                           
+  47 TERMORIO        1               101.88    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/01/2023
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19  18.759       0               100                                                                        0                                           
+ 173 NORTEFLU-3      1                    0     200     4.1 12.9324       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19 12.5612       0               100                                                                        0                                           
+ 146 STA VITORIA     1                    0  38.502    1.49     100       0               100                                                                        0                                           
+MOD: 01/02/2023
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1                236.1 236.964    0.36    0.36       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19 17.9081       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19    3.19       0               100                                                                        0                                           
+  47 TERMORIO        1                100.5    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/03/2023
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 21.1162       0               100                                                                        0                                           
+ 146 STA VITORIA     1                    0  38.502    1.49    1.49       0               100                                                                        0                                           
+  47 TERMORIO        1               105.38    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/04/2023
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 19.3068       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0  126.78     4.1 74.4235       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19  12.871       0               100                                                                        0                                           
+  47 TERMORIO        1                100.5    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/05/2023
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 17.1745       0               100                                                                        0                                           
+ 236 MARLIM AZUL     1                    0   565.5       5    9.75       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0  126.78     4.1     4.1       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19    3.19       0               100                                                                        0                                           
+MOD: 01/06/2023
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 15.2281       0               100                                                                        0                                           
+MOD: 01/07/2023
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 21.1162       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19 18.8055       0               100                                                                        0                                           
+MOD: 01/08/2023
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1               213.25 236.964    0.36 10.0052       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19 5.34926       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19    3.19       0               100                                                                        0                                           
+MOD: 01/09/2023
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1                236.1 236.964    0.36    0.36       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19    2.19       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0  126.78     4.1 36.0635       0               100                                                                        0                                           
+MOD: 01/10/2023
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+ 174 NORTEFLU-4      1                    0  126.78     4.1     4.1       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19 12.5612       0               100                                                                        0                                           
+  47 TERMORIO        1               101.08    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/11/2023
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+ 236 MARLIM AZUL     1               420.84   565.5       5    9.75       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19    3.19       0               100                                                                        0                                           
+  47 TERMORIO        1                100.5    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/01/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+ 173 NORTEFLU-3      1                    0     200     4.1     4.1       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19 28.1767       0               100                                                                        0                                           
+ 146 STA VITORIA     1                    0  38.502    1.49     100       0               100                                                                        0                                           
+  47 TERMORIO        1               101.88    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/02/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1                89.55 236.964    0.36 62.2066       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19    3.19       0               100                                                                        0                                           
+  47 TERMORIO        1                100.5    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/03/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1               213.25 236.964    0.36 10.0052       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0  126.78     4.1 35.0373       0               100                                                                        0                                           
+ 146 STA VITORIA     1                    0  38.502    1.49    1.49       0               100                                                                        0                                           
+MOD: 01/04/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1               188.88 236.964    0.36  20.288       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0  126.78     4.1     4.1       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19 9.64723       0               100                                                                        0                                           
+MOD: 01/05/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1               182.79 236.964    0.36 22.8587       0               100                                                                        0                                           
+ 236 MARLIM AZUL     1                    0   565.5       5    9.75       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19    3.19       0               100                                                                        0                                           
+MOD: 01/06/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1                236.1 236.964    0.36    0.36       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19 19.3068       0               100                                                                        0                                           
+MOD: 01/07/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 17.1745       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19 9.43424       0               100                                                                        0                                           
+MOD: 01/08/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19  16.392       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19    3.19       0               100                                                                        0                                           
+MOD: 01/09/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 20.1186       0               100                                                                        0                                           
+ 173 NORTEFLU-3      1                    0     200     4.1     100       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0  126.78     4.1     100       0               100                                                                        0                                           
+MOD: 01/10/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1               220.87 236.964    0.36 6.78678       0               100                                                                        0                                           
+ 238 GNA P. ACU 3    1              1598.16  1672.6     2.5 4.44999       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19 21.1162       0               100                                                                        0                                           
+ 173 NORTEFLU-3      1                    0     200     4.1 93.8145       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19 12.5612       0               100                                                                        0                                           
+  47 TERMORIO        1               107.52    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/11/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1               196.74 236.964    0.36   16.97       0               100                                                                        0                                           
+ 238 GNA P. ACU 3    1              1278.58  1672.6     2.5 4.44999       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19 20.1186       0               100                                                                        0                                           
+ 236 MARLIM AZUL     1               420.84   565.5       5    9.75       0               100                                                                        0                                           
+ 173 NORTEFLU-3      1                    0     200     4.1     4.1       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0  126.78     4.1     4.1       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19    3.19       0               100                                                                        0                                           
+  47 TERMORIO        1                100.5    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/12/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1               137.08 236.964    0.36  42.149       0               100                                                                        0                                           
+ 238 GNA P. ACU 3    1                    0  1672.6     2.5 4.44999       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19  18.759       0               100                                                                        0                                           
+MOD: 01/01/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1                236.1 236.964    0.36    0.36       0               100                                                                        0                                           
+ 110 N.PIRATINING    1                    0 374.783   10.73  26.022       0               100                                                                        0                                           
+ 146 STA VITORIA     1                    0  38.502    1.49     100       0               100                                                                        0                                           
+  47 TERMORIO        1               101.88    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/02/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 14.4163       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19 13.5584       0               100                                                                        0                                           
+  47 TERMORIO        1               102.38    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/03/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 20.3338       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19    3.19       0               100                                                                        0                                           
+ 146 STA VITORIA     1                    0  38.502    1.49    1.49       0               100                                                                        0                                           
+  47 TERMORIO        1                100.5    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/04/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 20.9402       0               100                                                                        0                                           
+MOD: 01/05/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 15.5998       0               100                                                                        0                                           
+ 236 MARLIM AZUL     1                    0   565.5       5    9.75       0               100                                                                        0                                           
+ 173 NORTEFLU-3      1                    0     200     4.1 75.2482       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0  126.78     4.1     100       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19 28.1767       0               100                                                                        0                                           
+MOD: 01/06/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 20.1186       0               100                                                                        0                                           
+ 173 NORTEFLU-3      1                    0     200     4.1     4.1       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0  126.78     4.1     4.1       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19    3.19       0               100                                                                        0                                           
+MOD: 01/07/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+ 238 GNA P. ACU 3    1              1598.16  1672.6     2.5 4.44999       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19 21.1162       0               100                                                                        0                                           
+MOD: 01/08/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1               220.87 236.964    0.36 6.78678       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19 19.5415       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19 9.43424       0               100                                                                        0                                           
+MOD: 01/09/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  65 DO ATLAN_CSA    1                236.1 236.964    0.36    0.36       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19 16.8615       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19    3.19       0               100                                                                        0                                           
+MOD: 01/10/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  15 LINHARES        1                    0     204    2.19 21.9085       0               100                                                                        0                                           
+  47 TERMORIO        1               107.52    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/11/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+ 238 GNA P. ACU 3    1              1278.58  1672.6     2.5 4.44999       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19 19.3068       0               100                                                                        0                                           
+ 236 MARLIM AZUL     1               420.84   565.5       5    9.75       0               100                                                                        0                                           
+ 173 NORTEFLU-3      1                    0     200     4.1 77.6265       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0  126.78     4.1     100       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19 9.64723       0               100                                                                        0                                           
+  47 TERMORIO        1                100.5    1036   14.41 18.2701       0               100                                                                        0                                           
+MOD: 01/12/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+ 238 GNA P. ACU 3    1                    0  1672.6     2.5 4.44999       0               100                                                                        0                                           
+  15 LINHARES        1                    0     204    2.19  18.759       0               100                                                                        0                                           
+ 173 NORTEFLU-3      1                    0     200     4.1     4.1       0               100                                                                        0                                           
+ 174 NORTEFLU-4      1                    0  126.78     4.1     4.1       0               100                                                                        0                                           
+ 229 ONCA PINTADA    1                 6.86    47.5    3.19    3.19       0               100                                                                        0                                           
+  47 TERMORIO        1               101.88    1036   14.41 18.2701       0               100                                                                        0                                           

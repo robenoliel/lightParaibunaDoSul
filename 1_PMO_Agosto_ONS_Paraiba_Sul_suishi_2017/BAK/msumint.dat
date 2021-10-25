@@ -1,0 +1,116 @@
+MOD: 01/09/2021
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  13 Soma   13        0.  6806.     0.  6806.     0.  6806.                             
+   2 Soma    2        0.  8000.     0.  8000.     0.  8000.                             
+MOD: 01/10/2021
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0.  7606.     0.  7606.     0.  7606.                             
+  13 Soma   13        0. 999999     0. 999999     0. 999999                             
+   2 Soma    2        0.  7500.     0.  7500.     0.  7500.                             
+   1 Soma    1        0.  7600.     0.  7600.     0.  8000.                             
+MOD: 01/11/2021
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0.  8265.     0.  8265.     0.  8265.                             
+MOD: 01/12/2021
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0.  9265.     0.  9265.     0.  9265.                             
+MOD: 01/01/2022
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 13765.     0. 13765.     0. 13365.                             
+   6 Soma    6        0.  6400.     0.  6400.     0.  5700.                             
+   4 Soma    4        0.  8600.     0.  8600.     0.  7500.                             
+   2 Soma    2        0.  9000.     0.  9000.     0.  9000.                             
+   1 Soma    1        0. 10400.     0. 10400.     0.  8300.                             
+MOD: 01/03/2022
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 14465.     0. 14465.     0. 14765.                             
+   2 Soma    2        0. 12000.     0. 12000.     0. 13200.                             
+   1 Soma    1        0. 11300.     0. 11300.     0.  8300.                             
+MOD: 01/05/2022
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 14806.     0. 14806.     0. 15106.                             
+MOD: 01/07/2022
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 14306.     0. 14306.     0. 15306.                             
+   1 Soma    1        0.  8700.     0.  8700.     0.  8500.                             
+MOD: 01/08/2022
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 12806.     0. 12806.     0. 13806.                             
+MOD: 01/11/2022
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 13365.     0. 13365.     0. 14365.                             
+MOD: 01/12/2022
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 14565.     0. 14565.     0. 15465.                             
+MOD: 01/01/2023
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 14465.     0. 14465.     0. 14765.                             
+   1 Soma    1        0. 11300.     0. 11300.     0.  8300.                             
+MOD: 01/04/2023
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+   2 Soma    2        0. 12300.     0. 12300.     0. 13200.                             
+MOD: 01/05/2023
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 14806.     0. 14806.     0. 15106.                             
+MOD: 01/07/2023
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 14606.     0. 14606.     0. 15306.                             
+   1 Soma    1        0.  8700.     0.  8700.     0.  8500.                             
+MOD: 01/08/2023
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 13106.     0. 13106.     0. 13806.                             
+MOD: 01/10/2023
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 14306.     0. 14306.     0. 14306.                             
+   2 Soma    2        0. 14500.     0. 14500.     0. 14000.                             
+   1 Soma    1        0.  9600.     0.  9600.     0.  9000.                             
+MOD: 01/11/2023
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 14965.     0. 14965.     0. 14765.                             
+MOD: 01/12/2023
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 16065.     0. 16065.     0. 15965.                             
+MOD: 01/01/2024
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 14465.     0. 14465.     0. 14765.                             
+   1 Soma    1        0. 11300.     0. 11300.     0.  8300.                             
+MOD: 01/05/2024
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 14806.     0. 14806.     0. 15106.                             
+MOD: 01/07/2024
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 15806.     0. 15806.     0. 15806.                             
+   1 Soma    1        0.  9600.     0.  9600.     0.  9000.                             
+MOD: 01/08/2024
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 14306.     0. 14306.     0. 14306.                             
+MOD: 01/11/2024
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 14965.     0. 14965.     0. 14765.                             
+MOD: 01/12/2024
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 16065.     0. 16065.     0. 15965.                             
+MOD: 01/01/2025
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 14465.     0. 14465.     0. 14765.                             
+   1 Soma    1        0. 11300.     0. 11300.     0.  8300.                             
+MOD: 01/04/2025
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+   2 Soma    2        0. 14700.     0. 14700.     0. 14100.                             
+   1 Soma    1        0. 15000.     0. 15000.     0.  9300.                             
+MOD: 01/05/2025
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 14806.     0. 14806.     0. 15106.                             
+MOD: 01/07/2025
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 15806.     0. 15806.     0. 15806.                             
+   1 Soma    1        0. 11000.     0. 11000.     0.  9300.                             
+MOD: 01/08/2025
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 14306.     0. 14306.     0. 14306.                             
+MOD: 01/11/2025
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 14965.     0. 14965.     0. 14765.                             
+MOD: 01/12/2025
+#Res (...Nome...) L.b.p1 U.b.p1 L.b.p2 U.b.p2 L.b.p3 U.b.p3 L.b.p4 U.b.p4 L.b.p5 U.b.p5 
+  14 Soma   14        0. 16065.     0. 16065.     0. 15965.                             

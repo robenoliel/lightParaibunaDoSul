@@ -1,0 +1,169 @@
+$version=1
+MOD: 01/08/2021
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  48 ARAUCARIA       1                    0 364.081       0       0       0               100                                                                        0                                           
+ 156 CANDIOTA 3      1                  210  319.34       0       0       0               100                                                                        0                                           
+  64 CANOAS          1                    0 243.102       0       0       0               100                                                                        0                                           
+ 169 CISFRAMA        1                    0       3       0       0       0               100                                                                        0                                           
+  28 FIGUEIRA        1                    0       0       0       0       0               100                                                                        0                                           
+  26 J.LACERDA A1    1                   57     100       0       0       0               100                                                                        0                                           
+  27 J.LACERDA A2    1                   66     132       0       0       0               100                                                                        0                                           
+  25 J.LACERDA B     1                  220     262       0       0       0               100                                                                        0                                           
+  24 J.LACERDA C     1                  289     363       0       0       0               100                                                                        0                                           
+ 107 PAMPA SUL       1                  170  268.41       0       0       0               100                                                                        0                                           
+ 149 SAO SEPE        1                    0       8       0       0       0               100                                                                        0                                           
+  35 URUGUAIANA      1                    0       0    0.31    0.31       0               100                                                                        0                                           
+MOD: 01/09/2021
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  48 ARAUCARIA       1                    0 479.986       0       0       0               100                                                                        0                                           
+ 156 CANDIOTA 3      1                  210     350       0       0       0               100                                                                        0                                           
+ 107 PAMPA SUL       1                26.87 26.8755       0       0       0               100                                                                        0                                           
+MOD: 01/10/2021
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  48 ARAUCARIA       1                    0 461.685       0       0       0               100                                                                        0                                           
+ 156 CANDIOTA 3      1                  210 333.865       0       0       0               100                                                                        0                                           
+  64 CANOAS          1                    0 104.002       0       0       0               100                                                                        0                                           
+  27 J.LACERDA A2    1                   33 66.3036       0       0       0               100                                                                        0                                           
+ 107 PAMPA SUL       1                155.8 155.802       0       0       0               100                                                                        0                                           
+MOD: 01/11/2021
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  48 ARAUCARIA       1                    0 23.0455       0       0       0               100                                                                        0                                           
+ 156 CANDIOTA 3      1                36.67   36.68       0       0       0               100                                                                        0                                           
+  64 CANOAS          1                    0 148.794       0       0       0               100                                                                        0                                           
+  27 J.LACERDA A2    1                   33 94.6044       0       0       0               100                                                                        0                                           
+ 107 PAMPA SUL       1                  170     345       0       0       0               100                                                                        0                                           
+MOD: 01/12/2021
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  48 ARAUCARIA       1                    0 171.728       0       0       0               100                                                                        0                                           
+ 156 CANDIOTA 3      1                  210 330.645       0       0       0               100                                                                        0                                           
+  64 CANOAS          1                    0 247.998       0       0       0               100                                                                        0                                           
+  27 J.LACERDA A2    1                   66     132       0       0       0               100                                                                        0                                           
+MOD: 01/01/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  48 ARAUCARIA       1                    0       0    3.15 13.2708       0               100                                                                        0                                           
+  37 ARGENTINA 1     1                    0       0       0       0       0               100                                                                        0                                           
+  71 ARGENTINA 1B    1                    0       0       0       0       0               100                                                                        0                                           
+  38 ARGENTINA 2A    1                    0       0       0       0       0               100                                                                        0                                           
+  39 ARGENTINA 2B    1                    0       0       0       0       0               100                                                                        0                                           
+  40 ARGENTINA 2C    1                    0       0       0       0       0               100                                                                        0                                           
+  59 ARGENTINA 2D    1                    0       0       0       0       0               100                                                                        0                                           
+ 237 CAMBARA         1                    0       0       2    3.96       0               100                                                                        0                                           
+ 156 CANDIOTA 3      1                  210     350   28.91   28.91       0               100                                                                        0                                           
+  64 CANOAS          1                    0  248.57    2.61 14.2481       0               100                                                                        0                                           
+ 169 CISFRAMA        1                    0     3.6     3.5    9.29       0               100                                                                        0                                           
+  28 FIGUEIRA        1                 4.65      18   28.77 55.1963       0               100                                                                        0                                           
+  26 J.LACERDA A1    1                   30      90    24.2 44.3022       0               100                                                                        0                                           
+  27 J.LACERDA A2    1                   66 120.001   10.72 27.6832       0               100                                                                        0                                           
+  25 J.LACERDA B     1               175.89 239.992    7.27 26.7062       0               100                                                                        0                                           
+  24 J.LACERDA C     1               242.05 335.013    8.93 27.7451       0               100                                                                        0                                           
+ 107 PAMPA SUL       1                  170     345   10.73 15.4167       0               100                                                                        0                                           
+ 149 SAO SEPE        1                    0     7.2   12.22 15.0202       0               100                                                                        0                                           
+  35 URUGUAIANA      1                    0       0    0.31 56.1763       0               100                                                                        0                                           
+MOD: 01/02/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  28 FIGUEIRA        1                12.81      18   28.77   28.77       0               100                                                                        0                                           
+  26 J.LACERDA A1    1                    0      90    24.2 44.3022       0               100                                                                        0                                           
+  27 J.LACERDA A2    1                    0 120.001   10.72 27.6832       0               100                                                                        0                                           
+  25 J.LACERDA B     1                    0 239.992    7.27 26.7062       0               100                                                                        0                                           
+  24 J.LACERDA C     1                    0 335.013    8.93 27.7451       0               100                                                                        0                                           
+MOD: 01/04/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  27 J.LACERDA A2    1                   66 120.001   10.72 27.6832       0               100                                                                        0                                           
+  25 J.LACERDA B     1               175.89 239.992    7.27 26.7062       0               100                                                                        0                                           
+  24 J.LACERDA C     1               242.05 335.013    8.93 27.7451       0               100                                                                        0                                           
+MOD: 01/06/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+ 156 CANDIOTA 3      1                    0     350   28.91     100       0               100                                                                        0                                           
+  26 J.LACERDA A1    1                   25      90    24.2 44.3022       0               100                                                                        0                                           
+MOD: 01/07/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+ 156 CANDIOTA 3      1                  210     350   28.91   28.91       0               100                                                                        0                                           
+MOD: 01/11/2022
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  26 J.LACERDA A1    1                    0      90    24.2 44.3022       0               100                                                                        0                                           
+  27 J.LACERDA A2    1                    0 120.001   10.72 27.6832       0               100                                                                        0                                           
+MOD: 01/01/2023
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  28 FIGUEIRA        1                 4.65      18   28.77 55.1963       0               100                                                                        0                                           
+  26 J.LACERDA A1    1                   30      90    24.2 44.3022       0               100                                                                        0                                           
+  27 J.LACERDA A2    1                   66 120.001   10.72 27.6832       0               100                                                                        0                                           
+MOD: 01/02/2023
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  28 FIGUEIRA        1                12.81      18   28.77   28.77       0               100                                                                        0                                           
+  26 J.LACERDA A1    1                    0      90    24.2 44.3022       0               100                                                                        0                                           
+  27 J.LACERDA A2    1                    0 120.001   10.72 27.6832       0               100                                                                        0                                           
+  25 J.LACERDA B     1                    0 239.992    7.27 26.7062       0               100                                                                        0                                           
+  24 J.LACERDA C     1                    0 335.013    8.93 27.7451       0               100                                                                        0                                           
+MOD: 01/04/2023
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  27 J.LACERDA A2    1                   66 120.001   10.72 27.6832       0               100                                                                        0                                           
+  25 J.LACERDA B     1               175.89 239.992    7.27 26.7062       0               100                                                                        0                                           
+  24 J.LACERDA C     1               242.05 335.013    8.93 27.7451       0               100                                                                        0                                           
+MOD: 01/06/2023
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+ 237 CAMBARA         1                   20      50       2    3.96       0               100                                                                        0                                           
+ 156 CANDIOTA 3      1                    0     350   28.91     100       0               100                                                                        0                                           
+  26 J.LACERDA A1    1                   25      90    24.2 44.3022       0               100                                                                        0                                           
+MOD: 01/07/2023
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+ 156 CANDIOTA 3      1                  210     350   28.91   28.91       0               100                                                                        0                                           
+MOD: 01/11/2023
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  26 J.LACERDA A1    1                    0      90    24.2 44.3022       0               100                                                                        0                                           
+  27 J.LACERDA A2    1                    0 120.001   10.72 27.6832       0               100                                                                        0                                           
+MOD: 01/01/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  28 FIGUEIRA        1                 4.65      18   28.77 55.1963       0               100                                                                        0                                           
+  26 J.LACERDA A1    1                   30      90    24.2 44.3022       0               100                                                                        0                                           
+  27 J.LACERDA A2    1                   66 120.001   10.72 27.6832       0               100                                                                        0                                           
+MOD: 01/02/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  28 FIGUEIRA        1                12.81      18   28.77   28.77       0               100                                                                        0                                           
+  26 J.LACERDA A1    1                    0      90    24.2 44.3022       0               100                                                                        0                                           
+  27 J.LACERDA A2    1                    0 120.001   10.72 27.6832       0               100                                                                        0                                           
+  25 J.LACERDA B     1                    0 239.992    7.27 26.7062       0               100                                                                        0                                           
+  24 J.LACERDA C     1                    0 335.013    8.93 27.7451       0               100                                                                        0                                           
+MOD: 01/04/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  27 J.LACERDA A2    1                   66 120.001   10.72 27.6832       0               100                                                                        0                                           
+  25 J.LACERDA B     1               175.89 239.992    7.27 26.7062       0               100                                                                        0                                           
+  24 J.LACERDA C     1               242.05 335.013    8.93 27.7451       0               100                                                                        0                                           
+MOD: 01/06/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+ 156 CANDIOTA 3      1                    0     350   28.91     100       0               100                                                                        0                                           
+  26 J.LACERDA A1    1                   25      90    24.2 44.3022       0               100                                                                        0                                           
+MOD: 01/07/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+ 156 CANDIOTA 3      1                  210     350   28.91   28.91       0               100                                                                        0                                           
+MOD: 01/11/2024
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  26 J.LACERDA A1    1                    0      90    24.2 44.3022       0               100                                                                        0                                           
+  27 J.LACERDA A2    1                    0 120.001   10.72 27.6832       0               100                                                                        0                                           
+MOD: 01/01/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  28 FIGUEIRA        1                 4.65      18   28.77 55.1963       0               100                                                                        0                                           
+  26 J.LACERDA A1    1                   30      90    24.2 44.3022       0               100                                                                        0                                           
+  27 J.LACERDA A2    1                   66 120.001   10.72 27.6832       0               100                                                                        0                                           
+MOD: 01/02/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  28 FIGUEIRA        1                12.81      18   28.77   28.77       0               100                                                                        0                                           
+  26 J.LACERDA A1    1                    0      90    24.2 44.3022       0               100                                                                        0                                           
+  27 J.LACERDA A2    1                    0 120.001   10.72 27.6832       0               100                                                                        0                                           
+  25 J.LACERDA B     1                    0 239.992    7.27 26.7062       0               100                                                                        0                                           
+  24 J.LACERDA C     1                    0 335.013    8.93 27.7451       0               100                                                                        0                                           
+MOD: 01/04/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  27 J.LACERDA A2    1                   66 120.001   10.72 27.6832       0               100                                                                        0                                           
+  25 J.LACERDA B     1               175.89 239.992    7.27 26.7062       0               100                                                                        0                                           
+  24 J.LACERDA C     1               242.05 335.013    8.93 27.7451       0               100                                                                        0                                           
+MOD: 01/06/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+ 156 CANDIOTA 3      1                    0     350   28.91     100       0               100                                                                        0                                           
+  26 J.LACERDA A1    1                   25      90    24.2 44.3022       0               100                                                                        0                                           
+MOD: 01/07/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+ 156 CANDIOTA 3      1                  210     350   28.91   28.91       0               100                                                                        0                                           
+MOD: 01/11/2025
+!Num ...Nombre... #Uni Tipo .PotIns .GerMin .GerMax ..Teif. ..Ih... .CVaria .MR. Comb ...G1.. .CEsp.1 ...G2.. .CEsp.2 ...G3.. .CEsp.3 NAdF ...1 ...2 ...3 ComT CTransp StartUp sfal NGas NuCC ..NombreCC.. CoefE.
+  26 J.LACERDA A1    1                    0      90    24.2 44.3022       0               100                                                                        0                                           
+  27 J.LACERDA A2    1                    0 120.001   10.72 27.6832       0               100                                                                        0                                           

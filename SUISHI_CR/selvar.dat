@@ -1,0 +1,48 @@
+SUBSIS.CSV
+ 1-CUSTO GT + DEF    2-E.ARMAZENADA       3-E.ARMAZENADA P.U.   4-MERCADO
+ 5-GER.HIDRAULICA    6-GER.TERMICA        7-EXECESSO ENERGIA    8-DEFICIT
+ 9-VALOR DA AGUA    10-CMO               11-E. ARM. MAXIMA     12-INTERCAMBIOS
+13-GER. PEQ. USINAS 14-CARGAS ADIC.      15-DESVIO FIO'DAGUA   16-ENERGIA
+90-ESCREVER TODAS
+------------------------------------------------------------------------------------
+ XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX
+ 90 
+************************************************************************************
+USIHID.CSV
+ 1-VAZAO AFLUENTE    2-VAZAO TURBINADA    3-VAZAO VERTIDA       4-VOLUME FINAL
+ 5-VOL.FINAL PU      6-E.ARMAZENADA       7-ALT.QUEDA LIQUIDA   8-GER.HIDRAULICA
+ 9-P. DISPONIVEL    10-COTA CANAL FUGA   11-EFEITO DE REMANSO  12-COTA V.MEDIO
+13-COTA V.FINAL     91-ESCREVER TODAS
+------------------------------------------------------------------------------------
+ XX XX XX XX XX XX XX XX XX XX XX XX XX XX
+ 91 
+************************************************************************************
+USITER.CSV
+ 1-CLASSE            2-GERACAO TERMICA    3-CUSTO              92-ESCREVER TODAS
+------------------------------------------------------------------------------------
+ XX XX XX XX
+ 82
+************************************************************************************
+GERTER.CSV
+93-IMPRIMIR ARQUIVO
+------------------------------------------------------------------------------------
+ XX
+ 
+************************************************************************************
+INTER.CSV
+ 1-INTERCAMBIO       2-PERDAS DE TRANSAMISSAO  84-NENHUMA      94-ESCREVER TODAS
+------------------------------------------------------------------------------------
+ XX XX XX XX
+ 84
+************************************************************************************
+REE.CSV
+ 1-E.ARMAZENADA      2-E.ARMAZENADA P.U.  3-GER.HIDRAULICA   4-EXECESSO ENERGIA
+ 5-DEFICIT           6-VALOR DA AGUA      7-E. ARM. MAXIMA   8-DESVIO FIO'DAGUA
+ 9-ENERGIA AFLUENTE 10-ENA ACOPLAMENTO   11-E. ARM. BALANÇO 12-GER. HIDRAULICA (OTIM)
+13-GER. HID. (SIM.) 14-ENERGIA VERTIDA   15-P. DISPONIVEL   16-P.DISP.REVISADA
+17-P. DISP. PAT.    18-P.DISP.REV.PAT    19-VIOL. DESV_FIO  20-DESVIO CONTROL.
+21-VIOL. EDESVC     22-VIOL. VAZMIN      23-E. SUBMOT.
+85-NENHUMA          95-ESCREVER TODAS
+------------------------------------------------------------------------------------
+ XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX
+ 

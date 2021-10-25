@@ -1,0 +1,4 @@
+$version=3
+!Num Name........ .Bus. Tipo #Uni .PotIns ..FatOpe ProbFal SFal Stat. ....O&M CurtCos TechTyp
+   7 EOL Norte        0    0    1 343.288        1       0    0     7       0       0       2
+   8 UFV Norte        0    0    1  3.5676        1       0    0     8       0       0       2

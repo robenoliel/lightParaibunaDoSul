@@ -1,0 +1,3 @@
+$version=1
+!nlSolver,rMode,phases,Objetivo,Armazenamento,Restricoes,qmin,vmin,vinit,percentVolInit,vlast,percentVolLast,outBin,pen_dif_turb,irrigation,evaporation,penalizavertimento,mes_inicial,ano_inicial,duration,ano_mnto,periodo_mnto,ano_rieg,periodo_rieg
+1,2,2,5,2,1,1,1,1,1.000000,1,0.050000,0,0,1,3,1,1,1948,10,2021,1,2021,1
