@@ -1,22 +1,26 @@
-using Random, Distributions, DataFrames, CSV, Statistics
+using Random, Distributions, DataFrames, CSV, Statistics, DelimitedFiles
 
 """
 Stores variables and state of a hydroplant element.
 """
 mutable struct hidroplant
+
     #immutable variables
     name::String
-    max_spilling::Float32            #m³/s
-    min_spilling::Float32            #m³/s
-    max_turbining::Float32            #m³/s
-    min_turbining::Float32            #m³/s
-    max_outflow::Float32            #m³/s
-    min_outflow::Float32            #m³/s
-    max_reservoir::Float32       #hm³
-    min_reservoir::Float32       #%
-    turbines_to::hidroplant
-    spills_to::hidroplant
-    generation_coef::Float64     #MW/m³/s
+    max_spilling::Float64                #m³/s
+    min_spilling::Float64                #m³/s
+    max_turbining::Float64               #m³/s
+    min_turbining::Float64               #m³/s
+    max_outflow::Float64                 #m³/s
+    min_outflow::Float64                 #m³/s
+    max_reservoir::Float64               #hm³
+    min_reservoir::Float64               #hm³
+    min_reservoir_ope::Float64           #%
+    generation_coef::Float64             #MW/m³/s
+    turbines_to::String
+    spills_to::String
+    turbine_spill_ratio::Float64
+    irrigation::Array{Float64, 1}
 end
 
 """
@@ -55,3 +59,37 @@ function stochastic_flow_generator(params::stochastic_flow_params,name::String, 
     td = truncated(d,0.0,Inf)
     return rand(td)
 end
+
+function loads_hidroplants(file_path::String)
+    df = DataFrame(CSV.File(file_path))
+    @show df
+    hidroplants = Dict()
+    for i in 1:size(df,1)
+        name = df[i,"name"]
+        if name in [name[1:end-4] for name in readdir("irrigation_data")]
+            irrigation = vec(readdlm(joinpath("irrigation_data",name*".csv"), '\t', Float64))
+        else
+            irrigation = zeros(12)
+        end
+        hidroplants[name] = hidroplant(
+            name,
+            df[i,"max_spillage"],
+            df[i,"min_spillage"],
+            df[i,"max_turbining"],
+            df[i,"min_turbining"],
+            df[i,"max_outflow"],
+            df[i,"min_outflow"],
+            df[i,"max_reservoir"],
+            df[i,"min_reservoir"],
+            df[i,"min_reservoir_ope"],
+            df[i,"generation_coef"],
+            df[i,"turbines_to"],
+            df[i,"spills_to"],
+            1.0,
+            irrigation
+        )
+    end
+    return hidroplants
+end
+
+loads_hidroplants("hidroplants_params.csv")
