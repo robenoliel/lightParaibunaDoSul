@@ -1,4 +1,4 @@
-using Random, Distributions, DataFrames, CSV, Statistics, DelimitedFiles, Parameters
+using Random, Distributions, DataFrames, CSV, Statistics, DelimitedFiles, Parameters, Dates
 
 """
 Stores variables and state of a hydroplant element.
@@ -30,6 +30,8 @@ Stores variables and state of a hydroplant element.
     spill_timeline = []
     turbine_timeline = []
     reservoir_timeline = []
+    inflow_timeline = []
+
 
 end
 
@@ -81,7 +83,8 @@ function loads_stochastic_incremental_flows(params::stochastic_flow_params, hidr
     for name in keys(hidroplants)
         flows[name] = []
         for step in 1:timesteps
-            push!(flows[name], _stochastic_flow_generator(params, name, step == 12 ? 12 : mod(step, 12)))
+            month = mod(step, 12) == 0 ? 12 : mod(step, 12)
+            push!(flows[name], _stochastic_flow_generator(params, name, month))
         end
     end
     return flows
@@ -122,7 +125,7 @@ function loads_hidroplants(file_path::String; reservoir_start::String = "min")
             turbines_to = df[i,"turbines_to"],
             spills_to = df[i,"spills_to"],
             irrigation = irrigation,
-            spilling = df[i,"min_spilling"],
+            spilling = df[i,"min_spillage"],
             turbining = df[i,"min_turbining"],
             reservoir = volume
         )
@@ -130,7 +133,38 @@ function loads_hidroplants(file_path::String; reservoir_start::String = "min")
     return hidroplants
 end
 
-function gets_turbine_from(name::String, hidroplants::Dict)
+"""
+Will balance every plant's reservoir for next timestep and update its registries.
+"""
+function hidro_balances_and_updates(hidroplants::Dict, incremental_natural_flows::Dict,step::Int64)
+    month = mod(step, 12) == 0 ? 12 : mod(step, 12)
+    for (name, plant) in hidroplants
+        push!(plant.spill_timeline, plant.spilling)
+        push!(plant.turbine_timeline, plant.turbining)
+        push!(plant.reservoir_timeline, plant.reservoir)
+        incremental_flow = incremental_natural_flows[name][step]
+        turbine_names = _gets_turbine_from(name, hidroplants)
+        for turbine_name in turbine_names
+            incremental_flow += m3_per_sec_to_hm3_per_month(hidroplants[turbine_name].turbining, month)
+        end
+        spillage_names = _gets_spillage_from(name, hidroplants)
+        for spillage_name in spillage_names
+            incremental_flow += m3_per_sec_to_hm3_per_month(hidroplants[spillage_name].spilling, month)
+        end
+        push!(plant.inflow_timeline, incremental_flow)
+        gain = plant.reservoir + incremental_flow
+        lost = m3_per_sec_to_hm3_per_month(plant.turbining, month)
+        lost += m3_per_sec_to_hm3_per_month(plant.spilling, month)
+        lost += m3_per_sec_to_hm3_per_month(plant.irrigation[month], month)
+        #lost += plant.evaporation[month]
+        plant.reservoir = gain - lost
+    end
+end
+
+"""
+Finds which plant turbines to a given one.
+"""
+function _gets_turbine_from(name::String15, hidroplants::Dict)
     result = []
     for (key, hidroplant) in hidroplants
         if hidroplant.turbines_to == name
@@ -140,7 +174,10 @@ function gets_turbine_from(name::String, hidroplants::Dict)
     return result
 end
 
-function gets_spill_from(name::String, hidroplants::Dict)
+"""
+Finds which plant spills to a given one.
+"""
+function _gets_spillage_from(name::String15, hidroplants::Dict)
     result = []
     for (key, hidroplant) in hidroplants
         if hidroplant.spills_to == name
@@ -148,6 +185,11 @@ function gets_spill_from(name::String, hidroplants::Dict)
         end
     end
     return result
+end
+
+function m3_per_sec_to_hm3_per_month(value::Float64,month::Int64)
+    t = Date(2020,month,1)
+    return value*60*60*24*daysinmonth(t)/10^6
 end
 
 function get_outflow(hidroplant::Type{hidroplant})
