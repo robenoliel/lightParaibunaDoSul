@@ -51,10 +51,19 @@ Reads flow time series and generates statistical data about flows for later stoc
 function stochastic_flow_compiler(folder_path::String,horizon::Int64 = 90)
     files = readdir(folder_path)
     names = [file_name[1:end-4] for file_name in files]
+    df_topology = DataFrame(CSV.File("topology.csv"))
     df_std = DataFrame(Dict(name => zeros(12) for name in names))
     df_mean = DataFrame(Dict(name => zeros(12) for name in names))
     for file in files
+        name = file[1:end-4]
         data = readdlm(joinpath(folder_path,file), '\t', Float64)
+        for i in 1:size(df_topology, 1)
+            if df_topology[i,"downstream"] == name
+                plant = df_topology[i,"plant"]
+                upstream = readdlm(joinpath(folder_path,plant*".csv"), '\t', Float64)
+                data -= upstream
+            end
+        end
         for j in 1:size(data,2)
             df_std[j,file[1:end-4]] = std(data[end-horizon+1:end,j])
             df_mean[j,file[1:end-4]] = mean(data[end-horizon+1:end,j])
@@ -167,6 +176,10 @@ function updates_inflow(name::Union{String,String15}, hidroplants::Dict, increme
     for spillage_name in spillage_names
         incremental_flow += m3_per_sec_to_hm3_per_month(hidroplants[spillage_name].spilling, month)
     end
+    if name == "funil"
+        @show spillage_names
+        @show turbine_names
+    end
     incremental_flow -= m3_per_sec_to_hm3_per_month(hidroplants[name].irrigation[month], month)
     hidroplants[name].inflow = incremental_flow
 end
@@ -192,14 +205,14 @@ end
 """
 Calculates % of equivalent reservoir.
 """
-function equivalent_reservoir_status(hidroplants::Dict)
+function paraibuna_do_sul_equivalent_reservoir_status(hidroplants::Dict)
     equiv_max = 0
     equiv_min_ope = 0
     equiv_current = 0
-    for (_, hidroplant) in hidroplants
-        equiv_max += hidroplant.max_reservoir
-        equiv_min_ope += hidroplant.min_reservoir_ope
-        equiv_current += hidroplant.reservoir
+    for name in ["funil","sta_cecilia","sta_branca","jaguari","paraibuna"]
+        equiv_max += hidroplants[name].max_reservoir
+        equiv_min_ope += hidroplants[name].min_reservoir_ope
+        equiv_current += hidroplants[name].reservoir
     end
     return (equiv_current - equiv_min_ope)/(equiv_max - equiv_min_ope)
 end
@@ -287,6 +300,9 @@ function operate_run_of_river_plant(name::Union{String15,String},hidroplants::Di
     end
 end
 
+"""
+Operates reservoir plant at a given step of the simulation.
+"""
 function operate_reservoir_plant(name::Union{String15,String},hidroplants::Dict,incremental_natural_flows::Dict,step::Int64)
     month = mod(step, 12) == 0 ? 12 : mod(step, 12)
     updates_inflow(name, hidroplants, incremental_natural_flows, step)
@@ -315,7 +331,46 @@ function operate_reservoir_plant(name::Union{String15,String},hidroplants::Dict,
     end
 end
 
+function operates_sta_cecilia_plant(hidroplants::Dict,incremental_natural_flows::Dict,step::Int64)
+    min_reservoir_ope = hidroplants["sta_cecilia"].min_reservoir_ope
+    max_reservoir = hidroplants["sta_cecilia"].max_reservoir
+    min_spillage = hidroplants["sta_cecilia"].min_spillage
+    max_spillage = hidroplants["sta_cecilia"].max_spillage
+    min_turbining = hidroplants["sta_cecilia"].min_turbining
+    max_turbining = hidroplants["sta_cecilia"].max_turbining
+    reservoir =  hidroplants["sta_cecilia"].reservoir
+    updates_inflow("sta_cecilia", hidroplants, incremental_natural_flows, step)
+    inflow =  hidroplants["sta_cecilia"].inflow
+    month = mod(step, 12) == 0 ? 12 : mod(step, 12)
+    excess = hm3_per_month_to_m3_per_sec(reservoir,month) + hm3_per_month_to_m3_per_sec(inflow,month) - min_spillage - min_turbining - max_reservoir
+    if excess > 0
+        if excess <= max_spillage - min_spillage
+            hidroplants["sta_cecilia"].spilling = excess + min_spillage
+            hidroplants["sta_cecilia"].turbining = min_turbining
+        elseif excess <= max_spillage - min_spillage + max_turbining - min_turbining
+            hidroplants["sta_cecilia"].spilling = max_spillage
+            hidroplants["sta_cecilia"].turbining = excess + min_turbining - (max_spillage - min_spillage)
+        else
+            hidroplants["sta_cecilia"].spilling = max_spillage
+            hidroplants["sta_cecilia"].turbining = max_turbining
+        end
+    elseif reservoir + inflow - m3_per_sec_to_hm3_per_month(min_spillage,month) -  m3_per_sec_to_hm3_per_month(min_turbining,month) >= min_reservoir_ope
+        hidroplants["sta_cecilia"].spilling = min_spillage
+        hidroplants["sta_cecilia"].turbining = min_turbining
+    elseif reservoir + inflow - m3_per_sec_to_hm3_per_month(min_spillage,month) >= min_reservoir_ope
+        hidroplants["sta_cecilia"].spilling = min_spillage
+        hidroplants["sta_cecilia"].turbining = hm3_per_month_to_m3_per_sec(reservoir + inflow - min_reservoir_ope, month) - min_spillage
+    else
+        hidroplants["sta_cecilia"].spilling = hm3_per_month_to_m3_per_sec(reservoir + inflow - min_reservoir_ope, month)
+        hidroplants["sta_cecilia"].turbining = 0
+    end
+end
+
+"""
+Update Paraibuna do Sul depletion status according to ANA resolution.
+"""
 function paraibuna_do_sul_depletion_update(hidroplants::Dict)
+    stage = "first"
     hidroplants["funil"].min_reservoir_ope = 0.3*(hidroplants["funil"].max_reservoir - hidroplants["funil"].min_reservoir) + hidroplants["funil"].min_reservoir
     hidroplants["sta_branca"].min_reservoir_ope = 0.7*(hidroplants["sta_branca"].max_reservoir - hidroplants["sta_branca"].min_reservoir) + hidroplants["sta_branca"].min_reservoir
     hidroplants["paraibuna"].min_reservoir_ope = 0.8*(hidroplants["paraibuna"].max_reservoir - hidroplants["paraibuna"].min_reservoir) + hidroplants["paraibuna"].min_reservoir
@@ -334,12 +389,15 @@ function paraibuna_do_sul_depletion_update(hidroplants::Dict)
                         hidroplants["paraibuna"].min_reservoir_ope = 0.05*(hidroplants["paraibuna"].max_reservoir - hidroplants["paraibuna"].min_reservoir) + hidroplants["paraibuna"].min_reservoir
                         if 0.05*(1+0.05) >= reservoir_status("paraibuna",hidroplants)
                             hidroplants["jaguari"].min_reservoir_ope = 0.2*(hidroplants["jaguari"].max_reservoir - hidroplants["jaguari"].min_reservoir) + hidroplants["jaguari"].min_reservoir
-                
+                            if 0.2*(1+0.05) >= reservoir_status("jaguari",hidroplants)
+                                stage = "third + paraibuna below operational"
+                                hidroplants["paraibuna"].min_reservoir_ope = hidroplants["jaguari"].min_reservoir_ope - 425
+                            end
                         end
                     end
                 end
             end
         end
-        println("# System of Paraibuna do Sul is in $(stage) depletion stage.")
     end
+    return stage
 end

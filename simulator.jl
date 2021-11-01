@@ -10,10 +10,10 @@ timesteps = 12*5
 verbose = true
 
 #initial status of reservoir_start
-reservoir_start = "max"
+reservoir_start = "min"
 
 #to manipulate natural incremental flows
-bias = -50.0
+bias = 0.0
 
 #degree of turbine sensitivity regarding the plant's reservoir
 n = 4
@@ -51,47 +51,61 @@ for step in 1:timesteps
     #Sobragi operation
     operate_run_of_river_plant("sobragi",hidroplants,incremental_natural_flows,step)
 
-    #Updates deprecation status
-    paraibuna_do_sul_depletion_update(hidroplants)
+    #Updates depletion status
+    stage = paraibuna_do_sul_depletion_update(hidroplants)
+    if verbose println("# System of Paraibuna do Sul is in $(stage) depletion stage.") end
 
     #Jaguari operation
     operate_reservoir_plant("jaguari",hidroplants,incremental_natural_flows,step)
-    """
-    @show reservoir_status("jaguari",hidroplants)
-    @show hidroplants["jaguari"].turbining
-    @show hm3_per_month_to_m3_per_sec(hidroplants["jaguari"].inflow, month)
-    """
 
     #Paraibuna operation
     operate_reservoir_plant("paraibuna",hidroplants,incremental_natural_flows,step)
-    """
-    @show reservoir_status("paraibuna",hidroplants)
-    @show hidroplants["paraibuna"].turbining
-    @show hm3_per_month_to_m3_per_sec(hidroplants["paraibuna"].inflow, month)
-    """
 
     #Sta Branca operation
     operate_reservoir_plant("sta_branca",hidroplants,incremental_natural_flows,step)
-    """
-    @show reservoir_status("sta_branca",hidroplants)
-    @show hidroplants["sta_branca"].reservoir
-    @show hidroplants["sta_branca"].min_reservoir_ope
-    @show hidroplants["sta_branca"].turbining
-    @show hm3_per_month_to_m3_per_sec(hidroplants["sta_branca"].inflow, month)
-    """
 
     #Funil operation
     operate_reservoir_plant("funil",hidroplants,incremental_natural_flows,step)
-    """
-    @show reservoir_status("funil",hidroplants)
+    @show hm3_per_month_to_m3_per_sec(incremental_natural_flows["funil"][step],month)
+    @show hidroplants["sta_branca"].turbining
+    @show hidroplants["sta_branca"].spilling
+    @show hidroplants["paraibuna"].turbining
+    @show hidroplants["paraibuna"].spilling
+    @show hidroplants["funil"].reservoir
     @show hidroplants["funil"].turbining
+    @show hidroplants["funil"].spilling
     @show hm3_per_month_to_m3_per_sec(hidroplants["funil"].inflow, month)
-    """
 
-    @show reservoir_status("funil",hidroplants)
-    @show reservoir_status("sta_branca",hidroplants)
-    @show reservoir_status("paraibuna",hidroplants)
-    @show reservoir_status("jaguari",hidroplants)
+    #Santa Cecilia operation
+    operates_sta_cecilia_plant(hidroplants,incremental_natural_flows,step)
+    @show hm3_per_month_to_m3_per_sec(incremental_natural_flows["sta_cecilia"][step],month)
+    @show hidroplants["funil"].turbining
+    @show hidroplants["funil"].spilling
+    @show hidroplants["sta_cecilia"].reservoir
+    @show hidroplants["sta_cecilia"].turbining
+    @show hidroplants["sta_cecilia"].spilling
+    @show hm3_per_month_to_m3_per_sec(hidroplants["sta_cecilia"].inflow, month)
+
+    #Santana operation
+    operate_run_of_river_plant("santana",hidroplants,incremental_natural_flows,step)
+
+    #Simplicio operation
+    operate_run_of_river_plant("simplicio",hidroplants,incremental_natural_flows,step)
+
+    #Ilha dos Pombos operation
+    operate_run_of_river_plant("ilha_dos_pombos",hidroplants,incremental_natural_flows,step)
+    
+    #Vigario operation
+    operate_run_of_river_plant("vigario",hidroplants,incremental_natural_flows,step)
+
+    #Nilo Peçanha operation
+    operate_run_of_river_plant("nilo_pecanha",hidroplants,incremental_natural_flows,step)
+
+    #Fontes BC operation
+    operate_run_of_river_plant("fontes_bc",hidroplants,incremental_natural_flows,step)
+
+    #Pereira Passos operation
+    operate_run_of_river_plant("pereira_passos",hidroplants,incremental_natural_flows,step)
 
     #balances every plant's reservoir for next timestep and updates its registries  
     hidro_balances_and_updates_registries(hidroplants, incremental_natural_flows, step)
