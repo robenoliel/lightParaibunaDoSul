@@ -20,6 +20,7 @@ Stores variables and state of a hydroplant element.
     turbines_to::String
     spills_to::String
     irrigation::Array{Float64, 1}        #m³/s
+    evaporation_coef::Array{Float64, 1}  #mm/month
 
     min_reservoir_ope = min_reservoir + min_reservoir_ope_per*(max_reservoir - min_reservoir) #hm³
 
@@ -75,7 +76,6 @@ function flow_compiler(folder_path::String,horizon::Int64 = 90)
         """
         df_flows[name] = reshape(data',(1,1080))[end-12*horizon+1:end]
     end
-    @show size(df_flows["funil"])
 
     return df_flows
 end
@@ -151,19 +151,23 @@ end
 """
 Will balance every plant's reservoir for next timestep and update its registries.
 """
-function hidro_balances_and_updates_registries(hidroplants::Dict, incremental_natural_flows::Dict,step::Int64)
-    month = mod(step, 12) == 0 ? 12 : mod(step, 12)
+function updates_registries(hidroplants::Dict, incremental_natural_flows::Dict,step::Int64)
     for (_, plant) in hidroplants
         push!(plant.spill_timeline, plant.spilling)
         push!(plant.turbine_timeline, plant.turbining)
         push!(plant.reservoir_timeline, plant.reservoir)
         push!(plant.inflow_timeline, plant.inflow)
-        gain = plant.reservoir + plant.inflow
-        lost = m3_per_sec_to_hm3_per_month(plant.turbining, month)
-        lost += m3_per_sec_to_hm3_per_month(plant.spilling, month)
-        #lost += plant.evaporation[month]
-        plant.reservoir = gain - lost
     end
+end
+
+function hidro_balance(name::Union{String,String15},hidroplants::Dict,step::Int64)
+    plant = hidroplants[name]
+    month = mod(step, 12) == 0 ? 12 : mod(step, 12)
+    gain = plant.reservoir + plant.inflow
+    lost = m3_per_sec_to_hm3_per_month(plant.turbining, month)
+    lost += m3_per_sec_to_hm3_per_month(plant.spilling, month)
+    #lost += plant.evaporation[month]
+    plant.reservoir = gain - lost
 end
 
 """
@@ -171,7 +175,7 @@ Updates inflow of plant considering activity of elements before it.
 """
 function updates_inflow(name::Union{String,String15}, hidroplants::Dict, incremental_natural_flows::Dict, step::Int64)
     month = mod(step, 12) == 0 ? 12 : mod(step, 12)
-    incremental_flow = incremental_natural_flows[name][step]
+    incremental_flow = m3_per_sec_to_hm3_per_month(incremental_natural_flows[name][step],month)
     turbine_names = _gets_turbine_from(name, hidroplants)
     for turbine_name in turbine_names
         incremental_flow += m3_per_sec_to_hm3_per_month(hidroplants[turbine_name].turbining, month)
@@ -181,6 +185,7 @@ function updates_inflow(name::Union{String,String15}, hidroplants::Dict, increme
         incremental_flow += m3_per_sec_to_hm3_per_month(hidroplants[spillage_name].spilling, month)
     end
     incremental_flow -= m3_per_sec_to_hm3_per_month(hidroplants[name].irrigation[month], month)
+
     hidroplants[name].inflow = incremental_flow
 end
 
@@ -274,30 +279,31 @@ function operate_run_of_river_plant(name::Union{String15,String},hidroplants::Di
     month = mod(step, 12) == 0 ? 12 : mod(step, 12)
     updates_inflow(name, hidroplants, incremental_natural_flows, step)
     if hidroplants[name].inflow >= m3_per_sec_to_hm3_per_month(hidroplants[name].min_turbining, month) + m3_per_sec_to_hm3_per_month(hidroplants[name].min_spillage, month)
-        if hidroplants[name].reservoir + hidroplants[name].inflow - m3_per_sec_to_hm3_per_month(hidroplants[name].min_turbining, month) - m3_per_sec_to_hm3_per_month(hidroplants[name].min_spillage, month)  <= hidroplants[name].min_reservoir
-            hidroplants[name].turbining = hidroplants[name].min_turbining
-            hidroplants[name].spilling = hidroplants[name].min_spillage
-        else
-            lacking = hidroplants[name].min_reservoir - hidroplants[name].reservoir
-            excess_reservoir = hidroplants[name].inflow - lacking
-            if excess_reservoir >= m3_per_sec_to_hm3_per_month(hidroplants[name].max_turbining, month)
-                excess_turbining = hm3_per_month_to_m3_per_sec(hidroplants[name].inflow - lacking, month) - hidroplants[name].max_turbining
-                if excess_turbining >= hidroplants[name].min_spillage
-                    hidroplants[name].turbining = hidroplants[name].max_turbining
-                    hidroplants[name].spilling = excess_turbining
-                else
-                    hidroplants[name].turbining = hm3_per_month_to_m3_per_sec(excess_reservoir, month) - hidroplants[name].min_spillage
-                    hidroplants[name].spilling = hidroplants[name].min_spillage
-                end
+        available = hm3_per_month_to_m3_per_sec(hidroplants[name].inflow,month)
+        if available >= hidroplants[name].max_turbining
+            available_spill = available - hidroplants[name].max_turbining
+            if available_spill >= hidroplants[name].min_spillage
+                hidroplants[name].turbining = hidroplants[name].max_turbining
+                hidroplants[name].spilling = available_spill
             else
-                hidroplants[name].turbining = hm3_per_month_to_m3_per_sec(excess_reservoir, month) - hidroplants[name].min_spillage
+                hidroplants[name].turbining = available - hidroplants[name].min_spillage
                 hidroplants[name].spilling = hidroplants[name].min_spillage
             end
+        else
+            hidroplants[name].turbining = available - hidroplants[name].min_spillage
+            hidroplants[name].spilling = hidroplants[name].min_spillage
         end
     else
-        hidroplants[name].turbining = hidroplants[name].min_turbining
-        hidroplants[name].spilling = hidroplants[name].min_spillage
+        available = hm3_per_month_to_m3_per_sec(hidroplants[name].inflow, month) - hidroplants[name].min_turbining
+        if available > 0
+            hidroplants[name].turbining = hidroplants[name].min_turbining
+            hidroplants[name].spilling = available - hidroplants[name].min_turbining
+        else
+            hidroplants[name].turbining = hm3_per_month_to_m3_per_sec(hidroplants[name].inflow, month)
+            hidroplants[name].spilling = 0.0
+        end
     end
+    hidro_balance(name,hidroplants,step)
 end
 
 """
@@ -307,7 +313,18 @@ function operate_reservoir_plant(name::Union{String15,String},hidroplants::Dict,
     month = mod(step, 12) == 0 ? 12 : mod(step, 12)
     updates_inflow(name, hidroplants, incremental_natural_flows, step)
     final_reservoir = hidroplants[name].reservoir + hidroplants[name].inflow - m3_per_sec_to_hm3_per_month(hidroplants[name].min_turbining, month) - m3_per_sec_to_hm3_per_month(hidroplants[name].min_spillage, month)
-    if final_reservoir > hidroplants[name].max_reservoir
+    eighty_reservoir = 0.8*(hidroplants[name].max_reservoir - hidroplants[name].min_reservoir) + hidroplants[name].min_reservoir
+    if name in ["sta_branca","jaguari","paraibuna","funil"] && paraibuna_do_sul_equivalent_reservoir_status(hidroplants) > 0.8 && reservoir_status(name,hidroplants) > 0.8 && final_reservoir > eighty_reservoir
+        excess_reservoir = final_reservoir - eighty_reservoir
+        if hidroplants[name].min_turbining + hm3_per_month_to_m3_per_sec(excess_reservoir, month) <= hidroplants[name].max_turbining
+            hidroplants[name].turbining = hidroplants[name].min_turbining + hm3_per_month_to_m3_per_sec(excess_reservoir, month)
+            hidroplants[name].spilling = hidroplants[name].min_spillage
+        else
+            excess_turbining = hidroplants[name].min_turbining + hm3_per_month_to_m3_per_sec(excess_reservoir, month) - hidroplants[name].max_turbining
+            hidroplants[name].turbining = hidroplants[name].max_turbining
+            hidroplants[name].spilling = excess_turbining
+        end
+    elseif final_reservoir > hidroplants[name].max_reservoir
         excess_reservoir = final_reservoir - hidroplants[name].max_reservoir
         if hidroplants[name].min_turbining + hm3_per_month_to_m3_per_sec(excess_reservoir, month) <= hidroplants[name].max_turbining
             hidroplants[name].turbining = hidroplants[name].min_turbining + hm3_per_month_to_m3_per_sec(excess_reservoir, month)
@@ -318,17 +335,75 @@ function operate_reservoir_plant(name::Union{String15,String},hidroplants::Dict,
             hidroplants[name].spilling = excess_turbining
         end
     elseif final_reservoir < hidroplants[name].min_reservoir_ope
-        if hidroplants[name].reservoir + hidroplants[name].inflow - hidroplants[name].min_reservoir_ope > 0
-            hidroplants[name].turbining = hm3_per_month_to_m3_per_sec(hidroplants[name].reservoir + hidroplants[name].inflow - hidroplants[name].min_reservoir_ope,month)
-            hidroplants[name].spilling = 0
-        else
-            hidroplants[name].turbining = 0
-            hidroplants[name].spilling = 0
+        if name in ["sta_branca","funil"]
+            extra = ask_previous_plants(name, hidroplants, hidroplants[name].min_reservoir_ope - final_reservoir,month)
+            hidroplants[name].inflow += extra
+            final_reservoir = hidroplants[name].reservoir + hidroplants[name].inflow - m3_per_sec_to_hm3_per_month(hidroplants[name].min_turbining, month) - m3_per_sec_to_hm3_per_month(hidroplants[name].min_spillage, month)
+        end
+        if final_reservoir*(1-0.0001) <= hidroplants[name].min_reservoir_ope
+            if hidroplants[name].reservoir + hidroplants[name].inflow - hidroplants[name].min_reservoir_ope >= 0
+                hidroplants[name].turbining = hm3_per_month_to_m3_per_sec(hidroplants[name].reservoir + hidroplants[name].inflow - hidroplants[name].min_reservoir_ope,month)
+                hidroplants[name].spilling = 0
+            else
+                hidroplants[name].turbining = 0
+                hidroplants[name].spilling = 0
+            end
         end
     else
         hidroplants[name].turbining = hidroplants[name].min_turbining
         hidroplants[name].spilling = hidroplants[name].min_spillage
     end
+    hidro_balance(name,hidroplants,step)
+end
+
+function ask_previous_plants(name::Union{String15,String},hidroplants::Dict,value::Float64,month::Int64)
+    paraibuna_do_sul_depletion_update(hidroplants,month)
+    extra_acquired = 0.0
+    if name == "funil"
+        previous_ones = ["sta_branca","jaguari"]
+    else
+        previous_ones = _gets_turbine_from(name,hidroplants)
+    end
+    if previous_ones == []
+        return 0.0
+    end
+    lacking = 0.0
+    for previous in previous_ones
+        value -= extra_acquired
+        if hidroplants[previous].reservoir - value > hidroplants[previous].min_reservoir_ope
+            if hidroplants[previous].turbining + hm3_per_month_to_m3_per_sec(value,month) < hidroplants[previous].max_turbining
+                hidroplants[previous].turbining += hm3_per_month_to_m3_per_sec(value,month)
+            else
+                can_turbinate = hidroplants[previous].max_turbining - hidroplants[previous].turbining
+                hidroplants[previous].turbining += can_turbinate
+                hidroplants[previous].spilling += hm3_per_month_to_m3_per_sec(value,month) - can_turbinate
+            end
+            hidroplants[previous].reservoir -= value
+            extra_acquired += value
+            return extra_acquired
+        else
+            available = hidroplants[previous].reservoir - hidroplants[previous].min_reservoir_ope > 0 ? hidroplants[previous].reservoir - hidroplants[previous].min_reservoir_ope : 0.0
+            lacking = value - available
+            if hidroplants[previous].turbining + hm3_per_month_to_m3_per_sec(available,month) < hidroplants[previous].max_turbining
+                hidroplants[previous].turbining += hm3_per_month_to_m3_per_sec(available,month)
+            else
+                can_turbinate = hidroplants[previous].max_turbining - hidroplants[previous].turbining
+                hidroplants[previous].turbining += can_turbinate
+                hidroplants[previous].spilling += hm3_per_month_to_m3_per_sec(available,month) - can_turbinate
+            end
+            hidroplants[previous].reservoir -= available
+            extra_acquired = available + ask_previous_plants(previous,hidroplants,lacking,month)
+            if extra_acquired >= value
+                return extra_acquired
+            end
+        end
+    end
+    """
+    if 0.2 < reservoir_status("jaguari",hidroplants) && name in ["funil","sta_cecilia"]
+        extra_acquired += ask_previous_plants(name,hidroplants,lacking,month)
+    end
+    """
+    return extra_acquired
 end
 
 function operates_sta_cecilia_plant(hidroplants::Dict,incremental_natural_flows::Dict,step::Int64)
@@ -343,7 +418,13 @@ function operates_sta_cecilia_plant(hidroplants::Dict,incremental_natural_flows:
     inflow =  hidroplants["sta_cecilia"].inflow
     month = mod(step, 12) == 0 ? 12 : mod(step, 12)
     excess = hm3_per_month_to_m3_per_sec(reservoir,month) + hm3_per_month_to_m3_per_sec(inflow,month) - min_spillage - min_turbining - hm3_per_month_to_m3_per_sec(max_reservoir,month)
-    if excess > 0
+    
+    if excess < 0
+        extra = ask_previous_plants("sta_cecilia",hidroplants,m3_per_sec_to_hm3_per_month((-1)*excess,month),month)
+        hidroplants["sta_cecilia"].inflow += extra
+    end
+    inflow =  hidroplants["sta_cecilia"].inflow
+    if excess >= 0
         if excess <= max_spillage - min_spillage
             hidroplants["sta_cecilia"].spilling = excess + min_spillage
             hidroplants["sta_cecilia"].turbining = min_turbining
@@ -364,12 +445,15 @@ function operates_sta_cecilia_plant(hidroplants::Dict,incremental_natural_flows:
         hidroplants["sta_cecilia"].spilling = hm3_per_month_to_m3_per_sec(reservoir + inflow - min_reservoir_ope, month)
         hidroplants["sta_cecilia"].turbining = 0
     end
+    hidro_balance("sta_cecilia",hidroplants,step)
 end
 
 """
 Update Paraibuna do Sul depletion status according to ANA resolution.
 """
-function paraibuna_do_sul_depletion_update(hidroplants::Dict)
+function paraibuna_do_sul_depletion_update(hidroplants::Dict,month::Int64)
+    wait_vol = [658.403, 698.333, 788.175, 888, 888, 888, 888, 888, 888, 888, 748.245, 618.473]
+    hidroplants["funil"].max_reservoir = wait_vol[month]
     stage = 1
     hidroplants["funil"].min_reservoir_ope = 0.3*(hidroplants["funil"].max_reservoir - hidroplants["funil"].min_reservoir) + hidroplants["funil"].min_reservoir
     hidroplants["sta_branca"].min_reservoir_ope = 0.7*(hidroplants["sta_branca"].max_reservoir - hidroplants["sta_branca"].min_reservoir) + hidroplants["sta_branca"].min_reservoir
@@ -391,7 +475,7 @@ function paraibuna_do_sul_depletion_update(hidroplants::Dict)
                             hidroplants["jaguari"].min_reservoir_ope = 0.2*(hidroplants["jaguari"].max_reservoir - hidroplants["jaguari"].min_reservoir) + hidroplants["jaguari"].min_reservoir
                             if 0.2*(1+0.05) >= reservoir_status("jaguari",hidroplants)
                                 stage = 4
-                                hidroplants["paraibuna"].min_reservoir_ope = hidroplants["jaguari"].min_reservoir_ope - 425
+                                hidroplants["paraibuna"].min_reservoir_ope = 0.2*(hidroplants["paraibuna"].max_reservoir - hidroplants["paraibuna"].min_reservoir) + hidroplants["paraibuna"].min_reservoir - 425
                             end
                         end
                     end

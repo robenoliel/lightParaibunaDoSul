@@ -15,10 +15,10 @@ verbose = true
 #initial status of reservoir_start
 reservoir_start = "mean"
 
+"""
 #to manipulate natural incremental flows
 bias = 0.0
 
-"""
 #degree of turbine sensitivity regarding the plant's reservoir
 n = 4
 """
@@ -33,7 +33,7 @@ timesteps = 12*years
 incremental_natural_flows = flow_compiler("flow_data",years)
 if verbose println("# Stochastic incremental natural flows have been successfully generated.") end
 
-hidroplants = loads_hidroplants("hidroplants_params.csv",reservoir_start= "mean")
+hidroplants = loads_hidroplants("hidroplants_params.csv",reservoir_start= reservoir_start)
 
 depletion_stages = []
 equivalent_reservoir = []
@@ -58,7 +58,7 @@ for step in 1:timesteps
     operate_run_of_river_plant("sobragi",hidroplants,incremental_natural_flows,step)
 
     #Updates depletion status
-    stage = paraibuna_do_sul_depletion_update(hidroplants)
+    stage = paraibuna_do_sul_depletion_update(hidroplants,month)
     push!(depletion_stages,stage)
     if verbose println("# System of Paraibuna do Sul is in $(stage) depletion stage.") end
 
@@ -99,7 +99,7 @@ for step in 1:timesteps
     operate_run_of_river_plant("pereira_passos",hidroplants,incremental_natural_flows,step)
 
     #balances every plant's reservoir for next timestep and updates its registries  
-    hidro_balances_and_updates_registries(hidroplants, incremental_natural_flows, step)
+    updates_registries(hidroplants, incremental_natural_flows, step)
     if verbose println("# Time step $(step) of simulation has been successfully completed.") end
 end
 
