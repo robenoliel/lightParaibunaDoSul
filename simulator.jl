@@ -143,6 +143,12 @@ df_generation = DataFrame(
     stage = depletion_stages,
     ps_equivalent_reservoir = equivalent_reservoir
 )
+df_evaporation = DataFrame(
+    step = 1:timesteps,
+    month = repeat(1:12, outer = years),
+    stage = depletion_stages,
+    ps_equivalent_reservoir = equivalent_reservoir
+)
 
 for (name, plant) in hidroplants
 
@@ -152,6 +158,7 @@ for (name, plant) in hidroplants
     df_spillage[!,name] = plant.spill_timeline
     df_incremental_flows[!,name] = incremental_natural_flows[name]
     df_generation[!,name] = plant.turbine_timeline * plant.generation_coef
+    df_evaporation[!,name] = plant.evaporation_timeline
 
 end
 
@@ -161,5 +168,7 @@ CSV.write(joinpath("results",case_name,"turbining.csv"),df_turbining)
 CSV.write(joinpath("results",case_name,"spillage.csv"),df_spillage)
 CSV.write(joinpath("results",case_name,"incremental_flow.csv"),df_incremental_flows)
 CSV.write(joinpath("results",case_name,"generation.csv"),df_generation)
+CSV.write(joinpath("results",case_name,"evaporation.csv"),df_evaporation)
+
 
 

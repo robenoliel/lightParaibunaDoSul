@@ -1,4 +1,4 @@
-using Random, Distributions, DataFrames, CSV, Statistics, DelimitedFiles, Parameters, Dates
+using Random, Distributions, DataFrames, CSV, Statistics, DelimitedFiles, Parameters, Dates, Polynomials
 
 """
 Stores variables and state of a hydroplant element.
@@ -21,6 +21,9 @@ Stores variables and state of a hydroplant element.
     spills_to::String
     irrigation::Array{Float64, 1}        #m³/s
     evaporation_coef::Array{Float64, 1}  #mm/month
+    poly_volume_quote::Union{String,Array{Float64, 1}}
+    poly_quote_area::Union{String,Array{Float64, 1}}
+    area::Float64                        #km²
 
     min_reservoir_ope = min_reservoir + min_reservoir_ope_per*(max_reservoir - min_reservoir) #hm³
 
@@ -29,12 +32,14 @@ Stores variables and state of a hydroplant element.
     turbining::Float64                   #m³/s
     reservoir::Float64                   #hm³
     inflow::Float64 = 0.0                #hm³
+    evaporation::Float64 = 0.0                #hm³
 
     #registry variables
     spill_timeline = []                  #m³/s
     turbine_timeline = []                #m³/s
     reservoir_timeline = []              #hm³
     inflow_timeline = []                 #hm³
+    evaporation_timeline = []            #hm³
 
 end
 
@@ -81,31 +86,6 @@ function flow_compiler(folder_path::String,horizon::Int64 = 90)
 end
 
 """
-function _stochastic_flow_generator(params::stochastic_flow_params,name::String15, month::Int, bias::Float64)
-    mean = params.mean[month,name]
-    std = params.std[month,name]
-    if mean == 0 && std == 0
-        return 0.0
-    end
-    d = Normal(mean + bias*std, std)
-    td = truncated(d,0.0,Inf)
-    return m3_per_sec_to_hm3_per_month(rand(td),month)
-end
-
-function loads_stochastic_incremental_flows(params::stochastic_flow_params, hidroplants::Dict, timesteps::Int64, bias::Float64)
-    flows = Dict()
-    for name in keys(hidroplants)
-        flows[name] = []
-        for step in 1:timesteps
-            month = mod(step, 12) == 0 ? 12 : mod(step, 12)
-            push!(flows[name], _stochastic_flow_generator(params, name, month, bias))
-        end
-    end
-    return flows
-end
-"""
-
-"""
 Loads hidroplants parameters from files to structs. Returns dictionary of `hidroplant`.
 """
 function loads_hidroplants(file_path::String; reservoir_start::String = "min")
@@ -117,6 +97,21 @@ function loads_hidroplants(file_path::String; reservoir_start::String = "min")
             irrigation = vec(readdlm(joinpath("irrigation_data",name*".csv"), '\t', Float64))
         else
             irrigation = zeros(12)
+        end
+        if name in [name[1:end-4] for name in readdir(joinpath("evaporation_data","coefficients"))]
+            evaporation_coef = vec(readdlm(joinpath("evaporation_data","coefficients",name*".csv"), '\t', Float64))
+            if name in [name[1:end-4] for name in readdir(joinpath("evaporation_data","polynomials"))]
+                polynomials = readdlm(joinpath("evaporation_data","polynomials",name*".csv"), '\t', Float64)
+                poly_volume_quote = vec(polynomials[1,:])
+                poly_quote_area = vec(polynomials[2,:])
+            else
+                poly_volume_quote = "nothing"
+                poly_quote_area = "nothing"
+            end
+        else
+            evaporation_coef = zeros(12)
+            poly_volume_quote = "nothing"
+            poly_quote_area = "nothing"
         end
         if reservoir_start == "max"
             volume = df[i,"max_reservoir"]
@@ -142,7 +137,11 @@ function loads_hidroplants(file_path::String; reservoir_start::String = "min")
             irrigation = irrigation,
             spilling = df[i,"min_spillage"],
             turbining = df[i,"min_turbining"],
-            reservoir = volume
+            reservoir = volume,
+            evaporation_coef = evaporation_coef,
+            poly_volume_quote = poly_volume_quote,
+            poly_quote_area = poly_quote_area,
+            area = df[i,"area"]
         )
     end
     return hidroplants
@@ -157,9 +156,13 @@ function updates_registries(hidroplants::Dict, incremental_natural_flows::Dict,s
         push!(plant.turbine_timeline, plant.turbining)
         push!(plant.reservoir_timeline, plant.reservoir)
         push!(plant.inflow_timeline, plant.inflow)
+        push!(plant.evaporation_timeline, plant.evaporation)
     end
 end
 
+"""
+Updates plant reservoir based on its parameters at a time step.
+"""
 function hidro_balance(name::Union{String,String15},hidroplants::Dict,step::Int64)
     plant = hidroplants[name]
     month = mod(step, 12) == 0 ? 12 : mod(step, 12)
@@ -184,8 +187,16 @@ function updates_inflow(name::Union{String,String15}, hidroplants::Dict, increme
     for spillage_name in spillage_names
         incremental_flow += m3_per_sec_to_hm3_per_month(hidroplants[spillage_name].spilling, month)
     end
+    if hidroplants[name].poly_volume_quote != "nothing"
+        hidroplants[name].evaporation =  hidroplants[name].area *  hidroplants[name].evaporation_coef[month]/1000
+        pvq = Polynomial(hidroplants[name].poly_volume_quote)
+        pqa = Polynomial(hidroplants[name].poly_quote_area)
+        q = pvq(hidroplants[name].reservoir)
+        hidroplants[name].area = pqa(q)
+    end
+    hidroplants[name].evaporation =  hidroplants[name].area *  hidroplants[name].evaporation_coef[month]/1000
+    incremental_flow -= hidroplants[name].evaporation
     incremental_flow -= m3_per_sec_to_hm3_per_month(hidroplants[name].irrigation[month], month)
-
     hidroplants[name].inflow = incremental_flow
 end
 
@@ -356,6 +367,10 @@ function operate_reservoir_plant(name::Union{String15,String},hidroplants::Dict,
     hidro_balance(name,hidroplants,step)
 end
 
+"""
+Manages how, if conditions allow to, previous plants may send more water to those which are not fullfilling
+their minimum requirements.
+"""
 function ask_previous_plants(name::Union{String15,String},hidroplants::Dict,value::Float64,month::Int64)
     paraibuna_do_sul_depletion_update(hidroplants,month)
     extra_acquired = 0.0
@@ -398,14 +413,12 @@ function ask_previous_plants(name::Union{String15,String},hidroplants::Dict,valu
             end
         end
     end
-    """
-    if 0.2 < reservoir_status("jaguari",hidroplants) && name in ["funil","sta_cecilia"]
-        extra_acquired += ask_previous_plants(name,hidroplants,lacking,month)
-    end
-    """
     return extra_acquired
 end
 
+"""
+Operates Santa Cecilia plant.
+"""
 function operates_sta_cecilia_plant(hidroplants::Dict,incremental_natural_flows::Dict,step::Int64)
     min_reservoir_ope = hidroplants["sta_cecilia"].min_reservoir_ope
     max_reservoir = hidroplants["sta_cecilia"].max_reservoir
@@ -485,3 +498,28 @@ function paraibuna_do_sul_depletion_update(hidroplants::Dict,month::Int64)
     end
     return stage
 end
+
+"""
+function _stochastic_flow_generator(params::stochastic_flow_params,name::String15, month::Int, bias::Float64)
+    mean = params.mean[month,name]
+    std = params.std[month,name]
+    if mean == 0 && std == 0
+        return 0.0
+    end
+    d = Normal(mean + bias*std, std)
+    td = truncated(d,0.0,Inf)
+    return m3_per_sec_to_hm3_per_month(rand(td),month)
+end
+
+function loads_stochastic_incremental_flows(params::stochastic_flow_params, hidroplants::Dict, timesteps::Int64, bias::Float64)
+    flows = Dict()
+    for name in keys(hidroplants)
+        flows[name] = []
+        for step in 1:timesteps
+            month = mod(step, 12) == 0 ? 12 : mod(step, 12)
+            push!(flows[name], _stochastic_flow_generator(params, name, month, bias))
+        end
+    end
+    return flows
+end
+"""
