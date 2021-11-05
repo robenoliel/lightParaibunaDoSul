@@ -64,6 +64,7 @@ for step in 1:timesteps
 
     #Jaguari operation
     operate_reservoir_plant("jaguari",hidroplants,incremental_natural_flows,step)
+    @show hidroplants["jaguari"].area
 
     #Paraibuna operation
     operate_reservoir_plant("paraibuna",hidroplants,incremental_natural_flows,step)
@@ -169,6 +170,3 @@ CSV.write(joinpath("results",case_name,"spillage.csv"),df_spillage)
 CSV.write(joinpath("results",case_name,"incremental_flow.csv"),df_incremental_flows)
 CSV.write(joinpath("results",case_name,"generation.csv"),df_generation)
 CSV.write(joinpath("results",case_name,"evaporation.csv"),df_evaporation)
-
-
-

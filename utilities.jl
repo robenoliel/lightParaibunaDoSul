@@ -124,7 +124,7 @@ function loads_hidroplants(file_path::String; reservoir_start::String = "min")
             name = name,
             max_spillage = df[i,"max_spillage"],
             min_spillage = df[i,"min_spillage"],
-            max_turbining = df[i,"max_turbining"],
+            max_turbining = df[i,"max_turbining"]*(1 - df[i,"IH"]),
             min_turbining = df[i,"min_turbining"],
             max_outflow = df[i,"max_outflow"],
             min_outflow = df[i,"min_outflow"],
@@ -194,7 +194,7 @@ function updates_inflow(name::Union{String,String15}, hidroplants::Dict, increme
         q = pvq(hidroplants[name].reservoir)
         hidroplants[name].area = pqa(q)
     end
-    hidroplants[name].evaporation =  hidroplants[name].area *  hidroplants[name].evaporation_coef[month]/1000
+    hidroplants[name].evaporation =  hidroplants[name].area * hidroplants[name].evaporation_coef[month]/1000
     incremental_flow -= hidroplants[name].evaporation
     incremental_flow -= m3_per_sec_to_hm3_per_month(hidroplants[name].irrigation[month], month)
     hidroplants[name].inflow = incremental_flow
