@@ -4,13 +4,24 @@ include("utilities.jl")
 ######################## PARAMETERS #########################
 
 #Study case name
-case_name = "case_1"
+case_name = "study_case"
 
-#number of years for simulation
-years = 90
+#initial volumes
+init_vol = Dict(
+    "funil" => 0.5,
+    "sta_branca" => 0.75,
+    "paraibuna" => 0.85,
+    "jaguari" => 0.85
+)
+
+# 1 or 2 only
+filling_mode = 1
+
+#put something here
+eighty_policiy = true
 
 #if to display simulation progress
-verbose = true
+verbose = false
 
 #initial status of reservoir_start
 reservoir_start = "mean"
@@ -27,20 +38,23 @@ n = 4
 
 if verbose println("########### SIMULATION START ###########") end
 
-timesteps = 12*years
 
 #loads incremental flows for simulation
-incremental_natural_flows = flow_compiler("flow_data",years)
+incremental_natural_flows = flow_compiler("flow_data")
+timesteps = size(incremental_natural_flows["funil"],1)
+years = Int64(trunc(timesteps/12))
 if verbose println("# Stochastic incremental natural flows have been successfully generated.") end
 
-hidroplants = loads_hidroplants("hidroplants_params.csv",reservoir_start= reservoir_start)
+hidroplants = loads_hidroplants("hidroplants_params.csv",reservoir_start = reservoir_start,paraibuna_start = init_vol)
 
 depletion_stages = []
 equivalent_reservoir = []
+months = []
+stage = 1
 
 for step in 1:timesteps
     month = mod(step, 12) == 0 ? 12 : mod(step, 12)
-    push!(equivalent_reservoir, paraibuna_do_sul_equivalent_reservoir_status(hidroplants))
+    push!(months,month)
 
     #Tocos operation: to keep reservoir at same volume, will turbine all it's incremental flow, and spill what's beyond its turbination limit.
     operate_run_of_river_plant("tocos",hidroplants,incremental_natural_flows,step)
@@ -58,25 +72,37 @@ for step in 1:timesteps
     operate_run_of_river_plant("sobragi",hidroplants,incremental_natural_flows,step)
 
     #Updates depletion status
-    stage = paraibuna_do_sul_depletion_update(hidroplants,month)
-    push!(depletion_stages,stage)
-    if verbose println("# System of Paraibuna do Sul is in $(stage) depletion stage.") end
-
+    stage = paraibuna_do_sul_depletion_update(hidroplants,month,stage,filling_mode)
+    
     #Jaguari operation
     operate_reservoir_plant("jaguari",hidroplants,incremental_natural_flows,step)
-    @show hidroplants["jaguari"].area
 
     #Paraibuna operation
     operate_reservoir_plant("paraibuna",hidroplants,incremental_natural_flows,step)
 
     #Sta Branca operation
+
     operate_reservoir_plant("sta_branca",hidroplants,incremental_natural_flows,step)
+    
 
     #Funil operation
     operate_reservoir_plant("funil",hidroplants,incremental_natural_flows,step)
 
     #Santa Cecilia operation
-    operates_sta_cecilia_plant(hidroplants,incremental_natural_flows,step)
+    @show step
+    if step == 1015
+        @show hidroplants["funil"].turbining
+        @show hidroplants["funil"].reservoir
+        @show hidroplants["sta_cecilia"].reservoir
+        @show hidroplants["sta_cecilia"].turbining
+    end
+    operates_sta_cecilia_plant(hidroplants,incremental_natural_flows,step,stage,filling_mode,eighty_policiy)
+    if step == 1015
+        @show hidroplants["funil"].turbining
+        @show hidroplants["funil"].reservoir
+        @show hidroplants["sta_cecilia"].reservoir
+        @show hidroplants["sta_cecilia"].turbining
+    end
 
     #Santana operation
     operate_run_of_river_plant("santana",hidroplants,incremental_natural_flows,step)
@@ -99,7 +125,10 @@ for step in 1:timesteps
     #Pereira Passos operation
     operate_run_of_river_plant("pereira_passos",hidroplants,incremental_natural_flows,step)
 
-    #balances every plant's reservoir for next timestep and updates its registries  
+    #balances every plant's reservoir for next timestep and updates its registries
+    push!(depletion_stages,stage)
+    push!(equivalent_reservoir, paraibuna_do_sul_equivalent_reservoir_status(hidroplants))
+    if verbose println("# System of Paraibuna do Sul is in $(stage) depletion stage.") end  
     updates_registries(hidroplants, incremental_natural_flows, step)
     if verbose println("# Time step $(step) of simulation has been successfully completed.") end
 end
@@ -110,43 +139,43 @@ end
 
 df_reservoir = DataFrame(
     step = 1:timesteps,
-    month = repeat(1:12, outer = years),
+    month = months,
     stage = depletion_stages,
     ps_equivalent_reservoir = equivalent_reservoir
 )
 df_irrigation = DataFrame(
     step = 1:timesteps,
-    month = repeat(1:12, outer = years),
+    month = months,
     stage = depletion_stages,
     ps_equivalent_reservoir = equivalent_reservoir
 )
 df_turbining = DataFrame(
     step = 1:timesteps,
-    month = repeat(1:12, outer = years),
+    month = months,
     stage = depletion_stages,
     ps_equivalent_reservoir = equivalent_reservoir
 )
 df_spillage = DataFrame(
     step = 1:timesteps,
-    month = repeat(1:12, outer = years),
+    month = months,
     stage = depletion_stages,
     ps_equivalent_reservoir = equivalent_reservoir
 )
 df_incremental_flows = DataFrame(
     step = 1:timesteps,
-    month = repeat(1:12, outer = years),
+    month = months,
     stage = depletion_stages,
     ps_equivalent_reservoir = equivalent_reservoir
 )
 df_generation = DataFrame(
     step = 1:timesteps,
-    month = repeat(1:12, outer = years),
+    month = months,
     stage = depletion_stages,
     ps_equivalent_reservoir = equivalent_reservoir
 )
 df_evaporation = DataFrame(
     step = 1:timesteps,
-    month = repeat(1:12, outer = years),
+    month = months,
     stage = depletion_stages,
     ps_equivalent_reservoir = equivalent_reservoir
 )
@@ -154,7 +183,7 @@ df_evaporation = DataFrame(
 for (name, plant) in hidroplants
 
     df_reservoir[!,name] = plant.reservoir_timeline
-    df_irrigation[!,name] = repeat(plant.irrigation, outer = years)
+    df_irrigation[!,name] = repeat(plant.irrigation, outer = years+1)[1:timesteps]
     df_turbining[!,name] = plant.turbine_timeline
     df_spillage[!,name] = plant.spill_timeline
     df_incremental_flows[!,name] = incremental_natural_flows[name]
@@ -163,10 +192,10 @@ for (name, plant) in hidroplants
 
 end
 
-CSV.write(joinpath("results",case_name,"reservoir.csv"),df_reservoir)
-CSV.write(joinpath("results",case_name,"irrigation.csv"),df_irrigation)
-CSV.write(joinpath("results",case_name,"turbining.csv"),df_turbining)
-CSV.write(joinpath("results",case_name,"spillage.csv"),df_spillage)
-CSV.write(joinpath("results",case_name,"incremental_flow.csv"),df_incremental_flows)
-CSV.write(joinpath("results",case_name,"generation.csv"),df_generation)
-CSV.write(joinpath("results",case_name,"evaporation.csv"),df_evaporation)
+CSV.write(joinpath("results",case_name,case_name*"_reservoir_hm3.csv"),df_reservoir)
+CSV.write(joinpath("results",case_name,case_name*"_irrigation_m3_per_sec.csv"),df_irrigation)
+CSV.write(joinpath("results",case_name,case_name*"_turbining_m3_per_sec.csv"),df_turbining)
+CSV.write(joinpath("results",case_name,case_name*"_spillage_m3_per_sec.csv"),df_spillage)
+CSV.write(joinpath("results",case_name,case_name*"_incremental_flow_m3_per_sec.csv"),df_incremental_flows)
+CSV.write(joinpath("results",case_name,case_name*"_generation_MW.csv"),df_generation)
+CSV.write(joinpath("results",case_name,case_name*"_evaporation_m3_per_sec.csv"),df_evaporation)
