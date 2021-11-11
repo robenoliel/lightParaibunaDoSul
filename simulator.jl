@@ -89,13 +89,7 @@ for step in 1:timesteps
     operate_reservoir_plant("funil",hidroplants,incremental_natural_flows,step)
 
     #Santa Cecilia operation
-    @show step
-    if step == 1015
-        @show hidroplants["funil"].turbining
-        @show hidroplants["funil"].reservoir
-        @show hidroplants["sta_cecilia"].reservoir
-        @show hidroplants["sta_cecilia"].turbining
-    end
+
     operates_sta_cecilia_plant(hidroplants,incremental_natural_flows,step,stage,filling_mode,eighty_policiy)
 
     #Santana operation
