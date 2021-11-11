@@ -1,0 +1,173 @@
+************************************************************************************
+& 01 - SUBSIS.CSV
+************************************************************************************
+* 01 - CUSTO      - Custo da Geração Térmica mais Déficit             
+* 02 - EARMFS     - Energia Armazenada ao Final do Mês                
+* 03 - EARMFSPU   - Energia Armazenada no Final do Mês em pu          
+* 04 - MERC       - Mercado                                           
+* 05 - GHID       - Geração Hidráulica no Mês (Simulador)             
+* 06 - GTER       - Geração Térmica no Mês                            
+* 07 - GEXC       - Excedente de Energia                              
+* 08 - GDEF       - Déficit de Geração do Simulador                   
+* 10 - CMO        - Custo Marginal do Submercado                      
+* 11 - EARMX      - Energia Armazenada Máxima                         
+* 13 - PEQUSI     - Geração de Pequenas Usinas                        
+* 14 - CADIC      - Cargas Adicionais                                 
+* 15 - DESV_FIO   - Desvio Fio D`àgua                                 
+* 16 - EAFLU      - Energia Afluente                                  
+* 17 - EAFFCF     - Energia Afluente para Acoplamento                 
+* 18 - EARM       - Energia Armazenada por Balanço                    
+* 19 - GHIDP      - Geração Hidráulica no Mês (Otimizador)            
+* 20 - GHIDPS     - Geração Hidráulica por Patamar (Simulador)        
+* 21 - EVERT      - Energia Vertida (Simulador)                       
+* 22 - PDISP      - Potência Disponível do Submercado                 
+* 23 - PDISPR     - Potência Disponível Revisada do Submercado        
+* 24 - PDISP_PAT  - Potência Disponível por Patamar                   
+* 25 - PDISPR_PAT - Potência Disponível Revisada por Patamar          
+* 26 - VIOL_EDSVF - Violação do Desvio Fio                            
+* 27 - EDESVC     - Desvio Controlável                                
+* 28 - VIOL_EDSVC - Violação do Desvio Controlável                    
+* 29 - VIOL_EVMIN - Violação da Vazão Mínima                          
+* 30 - SUBMOT     - Energia de Submotorização                         
+* 31 - GHCON      - Geração Hidráulica Controlável                    
+* 32 - GFIOL      - Geração Fio d`água Líquida                        
+* 33 - EXCEN_SBM  - Excesso do Otimizador                             
+* 34 - SDEFO_SBM  - Déficit do Otimizador                             
+* 35 - PDISP_QMIN - Potência Disponível que Garante o QMIN Fora da Pon
+* 80 - NENHUMA    - Não Gerar o Arquivo SUBSIS.CSV                    
+* 90 - TODAS      - Escrever Todas as Variáveis                       
+************************************************************************************
+ XX
+ 90
+************************************************************************************
+& 02 - USIHID.CSV
+************************************************************************************
+* 01 - QAFL       - Vazão Afluente Média                              
+* 02 - QTUR       - Vazão Turbinada Média                             
+* 03 - QVERT      - Vazão Vertida Média                               
+* 04 - VOLF       - Volume Armazenado ao Final do Mês                 
+* 05 - PUVOL      - Percentual do Volume Final em Relação ao Volume Út
+* 06 - EARMU      - Energia Armazenada ao Final do Mês                
+* 07 - QUED       - Altura Média de Queda Líquida                     
+* 08 - GHID       - Geração Hidráulica no Mês                         
+* 09 - PDIS       - Potência Disponível                               
+* 10 - CFUGA      - Cota do Canal de Fuga                             
+* 11 - REMANSO    - Efeito de Remanso                                 
+* 12 - COTAM      - Cota Referente ao Volume Médio                    
+* 13 - COTAF      - Cota Referente ao Volume Final                    
+* 14 - GBRU       - Geração Hidráulica Individualizada Bruta no Mês   
+* 15 - GHIDP      - Geração Hidráulica por Patamar                    
+* 16 - POTP       - Potência por Patamar                              
+* 17 - PDISP      - Potência Disponível por Patamar                   
+* 18 - PDISPR     - Potência Disponível Revisada                      
+* 19 - PDISPRPAT  - Potência Disponível Revisada por Patamar          
+* 20 - QTUR_PAT   - Vazão Turbinada por Patamar                       
+* 21 - QUED_PAT   - Altura de Queda Líquida por Patamar               
+* 22 - QMONT      - Contrib.das Usinas de Montante p/Cálculo do PDISPR
+* 23 - QINC       - Vazão Incremental                                 
+* 24 - PDISP_QMIN - Potência Disponível que Garante o QMIN Fora da Pon
+* 25 - QPONTA_QMI - Vazão Turbinada na Ponta que Garante o QMIN Fora d
+* 26 - QEVP       - Vazão Evaporada Média                             
+* 81 - NENHUMA    - Não Gerar Arquivo USIHID.CSV                      
+* 91 - TODAS      - Escrever Todas as Variáveis                       
+************************************************************************************
+ XX
+ 91
+************************************************************************************
+& 03 - USITER.CSV
+************************************************************************************
+* 01 - CLASSE     - Classe Térmica                                    
+* 02 - GTER       - Geração Térmica Total                             
+* 03 - CTER       - Custo de Geração no Mês                           
+* 82 - NENHUMA    - Não Gerar Arquivo USITER.CSV                      
+* 92 - TODAS      - Escrever Todas as Variáveis                       
+************************************************************************************
+ XX
+ 82
+************************************************************************************
+& 04 - GERTER.CSV
+************************************************************************************
+* 83 - NENHUMA    - Não Gerar o Arquivo GERTER.CSV                    
+* 93 - IMPRIMIR   - Imprimir Arquivo GERTER.CSV                       
+************************************************************************************
+ XX
+ 83
+************************************************************************************
+& 05 - INTER.CSV
+************************************************************************************
+* 01 - INTER      - Intercâmbios                                      
+* 02 - PERDAS     - Perdas na Transmissão Por Intercâmbio entre Subsis
+* 84 - NENHUMA    - Não Gerar Arquivo INTER.CSV                       
+* 94 - TODAS      - Escrever Todas as Variáveis                       
+************************************************************************************
+ XX
+ 84
+************************************************************************************
+& 06 - REE.CSV
+************************************************************************************
+* 01 - EARMFS     - Energia Armazenada ao Final do Mês                
+* 02 - EARMFSPU   - Energia Armazenada no Final do Mês em pu          
+* 03 - GHID       - Geração Hidráulica no Mês (Simulador)             
+* 04 - GEXC       - Excedente de Energia                              
+* 05 - GDEFS      - Déficit de Geração no Simulador                   
+* 06 - PIA        - Valor da Água no REE                              
+* 07 - EARMX      - Energia Armazenada Máxima                         
+* 08 - EDESVF     - Desvio Fio D`àgua                                 
+* 09 - EAFLU      - Energia Afluente                                  
+* 10 - EAFFCF     - Energia Afluente para Acoplamento                 
+* 11 - EARM       - Energia Armazenada por Balanço                    
+* 12 - GHIDP      - Geração Hidráulica no Mês (Otimizador)            
+* 13 - GHIDPS     - Geração Hidráulica por Patamar (Simulador)        
+* 14 - EVERT      - Energia Vertida (Simulador)                       
+* 15 - PDISP      - Potência Disponível do REE                        
+* 16 - PDISPR     - Potência Disponível Revisada do REE               
+* 17 - PDISP_PAT  - Potência Disponível por Patamar                   
+* 18 - PDISPR_PAT - Potência Disponível Revisada por Patamar          
+* 19 - VEDSVF     - Violação do Desvio Fio                            
+* 20 - EDESVC     - Desvio Controlável                                
+* 21 - VEDSVC     - Violação do Desvio Controlável                    
+* 22 - VEVMIN     - Violação da Vazão Mínima                          
+* 23 - SUBMOT     - Energia de Submotorização                         
+* 24 - GHCON      - Geração Hidráulica Controlável                    
+* 25 - GFIOL      - Geração Fio d`água Líquida                        
+* 26 - EXCEN      - Excesso do Otimizador                             
+* 27 - PDISP_QMIN - Potência Disponível que Garante o QMIN Fora da Pon
+* 85 - NENHUMA    - Não Gerar o Arquivo REE.CSV                       
+* 95 - TODAS      - Escrever Todas as Variáveis                       
+************************************************************************************
+ XX
+ 95
+************************************************************************************
+& 07 - SIN.CSV
+************************************************************************************
+* 01 - CUSTO      - Custo da Geração Térmica mais Déficit             
+* 02 - EARMFS     - Energia Armazenada ao Final do Mês                
+* 03 - EARMFSPU   - Energia Armazenada no Final do Mês em pu          
+* 04 - MERC       - Mercado                                           
+* 05 - GHID       - Geração Hidráulica no Mês (Simulador)             
+* 06 - GTER       - Geração Térmica no Mês                            
+* 07 - GEXC       - Excedente de Energia                              
+* 08 - GDEF       - Déficit de Geração do Simulador                   
+* 09 - EARMX      - Energia Armazenada Máxima                         
+* 10 - PEQUSI     - Geração de Pequenas Usinas                        
+* 11 - CADIC      - Cargas Adicionais                                 
+* 12 - DESV_FIO   - Desvio Fio D`àgua                                 
+* 13 - EAFLU      - Energia Afluente                                  
+* 14 - EARM       - Energia Armazenada por Balanço                    
+* 15 - GHIDP      - Geração Hidráulica no Mês (Otimizador)            
+* 16 - GHIDPS     - Geração Hidráulica por Patamar (Simulador)        
+* 17 - EVERT      - Energia Vertida (Simulador)                       
+* 18 - PDISP      - Potência Disponível do Submercado                 
+* 19 - PDISPR     - Potência Disponível Revisada do Submercado        
+* 20 - PDISP_PAT  - Potência Disponível por Patamar                   
+* 21 - PDISPR_PAT - Potência Disponível Revisada por Patamar          
+* 22 - EDESVC     - Desvio Controlável                                
+* 23 - GFIOL      - Geração Fio d`água Líquida                        
+* 24 - EXCEN_SBM  - Excesso do Otimizador                             
+* 25 - SDEFO_SBM  - Déficit do Otimizador                             
+* 26 - PDISP_QMIN - Potência Disponível que Garante o QMIN Fora da Pon
+* 86 - NENHUMA    - Não Gerar o Arquivo SIN.CSV                       
+* 96 - TODAS      - Escrever Todas as Variáveis                       
+************************************************************************************
+ XX
+ 96

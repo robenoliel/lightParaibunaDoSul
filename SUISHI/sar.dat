@@ -1,0 +1,31 @@
+ ---  DADOS GERAIS SAR  ---
+ MES FINAL : 11                                                                                                
+ PENALIDADE: 1130.00
+ ---  NIVEL META   ---
+ XXX XXXXXXXXXX XXX.X  XXX.X  XXX.X  XXX.X  XXX.X  XXX.X  XXX.X  XXX.X  XXX.X   XXX.X XXX.X  XXX.X  XXX.X  XXX.X  XXX.X  XXX.X
+   1 SUDESTE     30.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0
+   2 SUL          0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0
+   3 NORDESTE    30.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0   20.0
+   4 NORTE        0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0
+   5 B.MONTE      0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0    0.0
+ 999
+ --- HORIZONTE DE APLICACAO DA SAR  --- 
+ ANOX   JAN FEV MAR ABR MAI JUN JUL AGO SET OUT NOV DEZ       
+ PRE     0   0   0   1   1   1   1   1   1   1   0   0              
+ 2021    0   0   0   1   1   1   1   1   1   1   0   0              
+ 2022    0   0   0   1   1   1   1   1   1   1   0   0              
+ 2023    0   0   0   1   1   1   1   1   1   1   0   0              
+ 2024    0   0   0   1   1   1   1   1   1   1   0   0              
+ 2025    0   0   0   1   1   1   1   1   1   1   0   0              
+ POS     0   0   0   1   1   1   1   1   1   1   0   0              
+ 9999
+ --- CONDICIONAMENTO DA SERIE SAR (0: CONDICIONADA, 1: NAO COND. HISTORICO, 2: NAO COND. CUSTOMIZADA) ---          
+ 001
+ NUM SISTEMA      ANO
+ XXX XXXXXXXXXX   XXXX
+   1 SUDESTE      2010
+   2 SUL          2010
+   3 NORDESTE     2010
+   4 NORTE        2010
+   5 B.MONTE      2010
+ 999
