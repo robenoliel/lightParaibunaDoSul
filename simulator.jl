@@ -97,15 +97,15 @@ for step in 1:timesteps
         @show hidroplants["sta_cecilia"].turbining
     end
     operates_sta_cecilia_plant(hidroplants,incremental_natural_flows,step,stage,filling_mode,eighty_policiy)
-    if step == 1015
-        @show hidroplants["funil"].turbining
-        @show hidroplants["funil"].reservoir
-        @show hidroplants["sta_cecilia"].reservoir
-        @show hidroplants["sta_cecilia"].turbining
-    end
 
     #Santana operation
     operate_run_of_river_plant("santana",hidroplants,incremental_natural_flows,step)
+    @show hidroplants["sta_cecilia"].turbining
+    @show hidroplants["tocos"].spilling
+    @show hm3_per_month_to_m3_per_sec(hidroplants["santana"].inflow,month)
+    @show incremental_natural_flows["santana"][step]
+    @show hidroplants["santana"].turbining
+    @show hidroplants["santana"].spilling
 
     #Simplicio operation
     operate_run_of_river_plant("simplicio",hidroplants,incremental_natural_flows,step)
