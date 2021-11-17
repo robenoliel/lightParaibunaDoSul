@@ -1,4 +1,4 @@
-using Random, Distributions, DataFrames, CSV, Statistics, DelimitedFiles, Parameters, Dates, Polynomials
+using Random, Distributions, DataFrames, CSV, Statistics, DelimitedFiles, Parameters, Dates, Polynomials, GLM
 
 """
 Stores variables and state of a hydroplant element.
@@ -23,6 +23,7 @@ Stores variables and state of a hydroplant element.
     evaporation_coef::Array{Float64, 1}  #mm/month
     poly_volume_quote::Union{String,Array{Float64, 1}}
     poly_quote_area::Union{String,Array{Float64, 1}}
+    poly_generation::Union{String,Array{Float64, 1}}
     area::Float64                        #km²
 
     min_reservoir_ope = min_reservoir + min_reservoir_ope_per*(max_reservoir - min_reservoir) #hm³
@@ -40,15 +41,26 @@ Stores variables and state of a hydroplant element.
     reservoir_timeline = []              #hm³
     inflow_timeline = []                 #hm³
     evaporation_timeline = []            #hm³
+    generation_timeline = []            #MW
 
 end
 
-"""
-Stores statistical data about flows for later stochastic generation of random values.
-"""
-struct stochastic_flow_params
-    std::DataFrame
-    mean::DataFrame
+function _generation_regression(name::Union{String,String15})
+    file_path = joinpath("generation_data",name*".csv")
+    try
+        df_generation = DataFrame(CSV.File(file_path))[:,["QTUR","VOLF","GHID"]]
+        fm = @formula(GHID ~ QTUR + VOLF)
+        sm = lm(fm, df_generation)
+        println("$(name) generation regression r2: $(r2(sm))")
+        return coef(sm)
+    catch
+        df_generation = DataFrame(CSV.File(file_path))[:,["QTURB","VOLF","GHIDR"]]
+        fm = @formula(GHIDR ~ QTURB + VOLF)
+        sm = lm(fm, df_generation)
+        println("$(name) generation regression r2: $(r2(sm))")
+        return coef(sm)
+    end
+    
 end
 
 function read_flow(path::String)
@@ -111,6 +123,13 @@ function loads_hidroplants(file_path::String; reservoir_start::String = "min",pa
         else
             irrigation = zeros(12)
         end
+        
+        if name in [name[1:end-4] for name in readdir("generation_data")]
+            poly_generation = _generation_regression(name)
+        else
+            poly_generation = "nothing"
+        end
+        
         if name in [name[1:end-4] for name in readdir(joinpath("evaporation_data","coefficients"))]
             evaporation_coef = vec(readdlm(joinpath("evaporation_data","coefficients",name*".csv"), '\t', Float64))
             if name in [name[1:end-4] for name in readdir(joinpath("evaporation_data","polynomials"))]
@@ -135,7 +154,8 @@ function loads_hidroplants(file_path::String; reservoir_start::String = "min",pa
         elseif reservoir_start == "min"
             volume = df[i,"min_reservoir"] + df[i,"min_reservoir_ope"]*(df[i,"max_reservoir"] - df[i,"min_reservoir"])
         end
-    
+        @show name
+        @show (1 - df[i,"IH"])
         hidroplants[name] = hidroplant(
             name = name,
             max_spillage = df[i,"max_spillage"],
@@ -157,6 +177,7 @@ function loads_hidroplants(file_path::String; reservoir_start::String = "min",pa
             evaporation_coef = evaporation_coef,
             poly_volume_quote = poly_volume_quote,
             poly_quote_area = poly_quote_area,
+            poly_generation = poly_generation,
             area = df[i,"area"]
         )
     end
@@ -174,6 +195,14 @@ function updates_registries(hidroplants::Dict, incremental_natural_flows::Dict,s
         push!(plant.reservoir_timeline, plant.reservoir)
         push!(plant.inflow_timeline, plant.inflow)
         push!(plant.evaporation_timeline, hm3_per_month_to_m3_per_sec(plant.evaporation,month))
+        if plant.poly_generation != "nothing"
+            poly = plant.poly_generation
+            generation = poly[1] + poly[2]*plant.turbining + poly[3]*plant.reservoir
+            generation = generation >= 0 ? generation : 0.0
+            push!(plant.generation_timeline, generation)
+        else
+            push!(plant.generation_timeline, plant.turbining*plant.generation_coef)
+        end
     end
 end
 
@@ -397,9 +426,6 @@ function ask_previous_plants(name::Union{String15,String},hidroplants::Dict,valu
         value -= extra_acquired
         min = complete_depletion ? hidroplants[previous].min_reservoir : hidroplants[previous].min_reservoir_ope
         if complete_depletion && previous == "jaguari"
-            @show "here 5"
-            @show min
-            @show value
         end
         if hidroplants[previous].reservoir - value > min
             if hidroplants[previous].turbining + hm3_per_month_to_m3_per_sec(value,month) < hidroplants[previous].max_turbining
@@ -443,10 +469,7 @@ function ask_previous_plants(name::Union{String15,String},hidroplants::Dict,valu
         end
     end
     if name == "sta_cecilia" && (reservoir_status("funil",hidroplants) > 0 || reservoir_status("sta_branca",hidroplants) > 0 || reservoir_status("jaguari",hidroplants) > 0) && hidroplants["paraibuna"].reservoir == hidroplants["paraibuna"].min_reservoir - 425
-        @show "here 4"
-        @show start_value - extra_acquired
         last_resource = ask_previous_plants("sta_cecilia",hidroplants,start_value - extra_acquired,month,complete_depletion = true)
-        @show last_resource
     end
     return extra_acquired
 end
@@ -576,5 +599,11 @@ function loads_stochastic_incremental_flows(params::stochastic_flow_params, hidr
         end
     end
     return flows
+end
+
+Stores statistical data about flows for later stochastic generation of random values.
+struct stochastic_flow_params
+    std::DataFrame
+    mean::DataFrame
 end
 """

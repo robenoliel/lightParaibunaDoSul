@@ -4,7 +4,7 @@ include("utilities.jl")
 ######################## PARAMETERS #########################
 
 #Study case name
-case_name = "study_case"
+case_name = "study_case_regression"
 
 #initial volumes
 init_vol = Dict(
@@ -94,13 +94,8 @@ for step in 1:timesteps
 
     #Santana operation
     operate_run_of_river_plant("santana",hidroplants,incremental_natural_flows,step)
-    @show hidroplants["sta_cecilia"].turbining
-    @show hidroplants["tocos"].spilling
-    @show hm3_per_month_to_m3_per_sec(hidroplants["santana"].inflow,month)
-    @show incremental_natural_flows["santana"][step]
-    @show hidroplants["santana"].turbining
-    @show hidroplants["santana"].spilling
 
+    
     #Simplicio operation
     operate_run_of_river_plant("simplicio",hidroplants,incremental_natural_flows,step)
 
@@ -181,7 +176,7 @@ for (name, plant) in hidroplants
     df_turbining[!,name] = plant.turbine_timeline
     df_spillage[!,name] = plant.spill_timeline
     df_incremental_flows[!,name] = incremental_natural_flows[name]
-    df_generation[!,name] = plant.turbine_timeline * plant.generation_coef
+    df_generation[!,name] = plant.generation_timeline
     df_evaporation[!,name] = plant.evaporation_timeline
 
 end
