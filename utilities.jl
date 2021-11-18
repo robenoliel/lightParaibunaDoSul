@@ -166,8 +166,6 @@ Stores variables and state of a hydroplant element.
     min_spillage::Float64                #m³/s
     max_turbining::Float64               #m³/s
     min_turbining::Float64               #m³/s
-    max_outflow::Float64                 #m³/s
-    min_outflow::Float64                 #m³/s
     max_reservoir::Float64               #hm³
     min_reservoir::Float64               #hm³
     min_reservoir_ope_per::Float64        #%
@@ -308,8 +306,6 @@ function loads_hidroplants(input_folder::String)
             min_spillage = df[i,"min_spillage"],
             max_turbining = df[i,"max_turbining"]*(1 - df[i,"IH"]),
             min_turbining = df[i,"min_turbining"],
-            max_outflow = df[i,"max_outflow"],
-            min_outflow = df[i,"min_outflow"],
             max_reservoir = df[i,"max_reservoir"],
             min_reservoir = df[i,"min_reservoir"],
             min_reservoir_ope_per = df[i,"min_reservoir_ope"],
