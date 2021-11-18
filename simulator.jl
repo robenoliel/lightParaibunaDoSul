@@ -6,14 +6,6 @@ include("utilities.jl")
 #Study case name
 case_name = "study_case_regression"
 
-#initial volumes
-init_vol = Dict(
-    "funil" => 0.5,
-    "sta_branca" => 0.75,
-    "paraibuna" => 0.85,
-    "jaguari" => 0.85
-)
-
 # 1 or 2 only
 filling_mode = 1
 
@@ -22,9 +14,6 @@ eighty_policiy = true
 
 #if to display simulation progress
 verbose = false
-
-#initial status of reservoir_start
-reservoir_start = "mean"
 
 """
 #to manipulate natural incremental flows
@@ -43,9 +32,8 @@ if verbose println("########### SIMULATION START ###########") end
 incremental_natural_flows = flow_compiler("flow_data")
 timesteps = size(incremental_natural_flows["funil"],1)
 years = Int64(trunc(timesteps/12))
-if verbose println("# Stochastic incremental natural flows have been successfully generated.") end
 
-hidroplants = loads_hidroplants("hidroplants_params.csv",reservoir_start = reservoir_start,paraibuna_start = init_vol)
+hidroplants = loads_hidroplants("hidroplants_params.csv")
 
 depletion_stages = []
 equivalent_reservoir = []

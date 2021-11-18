@@ -1,5 +1,160 @@
 using Random, Distributions, DataFrames, CSV, Statistics, DelimitedFiles, Parameters, Dates, Polynomials, GLM
 
+function run_simulation(case_name::String,input_folder::String;verbose::Bool = false)
+    filling_mode = 1
+    eighty_policiy = true
+
+    if verbose println("########### SIMULATION START ###########") end
+    #loads incremental flows for simulation
+    incremental_natural_flows = flow_compiler(joinpath(input_folder))
+    timesteps = size(incremental_natural_flows["funil"],1)
+    years = Int64(trunc(timesteps/12))
+
+    hidroplants = loads_hidroplants(input_folder)
+    depletion_stages = []
+    equivalent_reservoir = []
+    months = []
+    stage = 1
+
+    for step in 1:timesteps
+        month = mod(step, 12) == 0 ? 12 : mod(step, 12)
+        push!(months,month)
+    
+        #Tocos operation: to keep reservoir at same volume, will turbine all it's incremental flow, and spill what's beyond its turbination limit.
+        operate_run_of_river_plant("tocos",hidroplants,incremental_natural_flows,step)
+        
+        #Lajes operation
+        operate_reservoir_plant("lajes",hidroplants,incremental_natural_flows,step)
+    
+        #Fontes_a operation: to keep reservoir at same volume, will turbine all it's incremental flow, and spill what's beyond its turbination limit.
+        operate_run_of_river_plant("fontes_a",hidroplants,incremental_natural_flows,step)
+        
+        #Picada operation
+        operate_run_of_river_plant("picada",hidroplants,incremental_natural_flows,step)
+    
+        #Sobragi operation
+        operate_run_of_river_plant("sobragi",hidroplants,incremental_natural_flows,step)
+    
+        #Updates depletion status
+        stage = paraibuna_do_sul_depletion_update(hidroplants,month,stage,filling_mode)
+        
+        #Jaguari operation
+        operate_reservoir_plant("jaguari",hidroplants,incremental_natural_flows,step)
+    
+        #Paraibuna operation
+        operate_reservoir_plant("paraibuna",hidroplants,incremental_natural_flows,step)
+    
+        #Sta Branca operation
+    
+        operate_reservoir_plant("sta_branca",hidroplants,incremental_natural_flows,step)
+        
+    
+        #Funil operation
+        operate_reservoir_plant("funil",hidroplants,incremental_natural_flows,step)
+    
+        #Santa Cecilia operation
+    
+        operates_sta_cecilia_plant(hidroplants,incremental_natural_flows,step,stage,filling_mode,eighty_policiy)
+    
+        #Santana operation
+        operate_run_of_river_plant("santana",hidroplants,incremental_natural_flows,step)
+    
+        
+        #Simplicio operation
+        operate_run_of_river_plant("simplicio",hidroplants,incremental_natural_flows,step)
+    
+        #Ilha dos Pombos operation
+        operate_run_of_river_plant("ilha_dos_pombos",hidroplants,incremental_natural_flows,step)
+        
+        #Vigario operation
+        operate_run_of_river_plant("vigario",hidroplants,incremental_natural_flows,step)
+    
+        #Nilo Peçanha operation
+        operate_run_of_river_plant("nilo_pecanha",hidroplants,incremental_natural_flows,step)
+    
+        #Fontes BC operation
+        operate_run_of_river_plant("fontes_bc",hidroplants,incremental_natural_flows,step)
+    
+        #Pereira Passos operation
+        operate_run_of_river_plant("pereira_passos",hidroplants,incremental_natural_flows,step)
+    
+        #balances every plant's reservoir for next timestep and updates its registries
+        push!(depletion_stages,stage)
+        push!(equivalent_reservoir, paraibuna_do_sul_equivalent_reservoir_status(hidroplants))
+        updates_registries(hidroplants, incremental_natural_flows, step)
+        if verbose println("# Time step $(step) of simulation has been successfully completed.") end
+    end
+
+    if !isdir(joinpath("results",case_name))
+        mkdir(joinpath("results",case_name))
+    end
+
+    df_reservoir = DataFrame(
+        step = 1:timesteps,
+        month = months,
+        stage = depletion_stages,
+        ps_equivalent_reservoir = equivalent_reservoir
+    )
+    df_irrigation = DataFrame(
+        step = 1:timesteps,
+        month = months,
+        stage = depletion_stages,
+        ps_equivalent_reservoir = equivalent_reservoir
+    )
+    df_turbining = DataFrame(
+        step = 1:timesteps,
+        month = months,
+        stage = depletion_stages,
+        ps_equivalent_reservoir = equivalent_reservoir
+    )
+    df_spillage = DataFrame(
+        step = 1:timesteps,
+        month = months,
+        stage = depletion_stages,
+        ps_equivalent_reservoir = equivalent_reservoir
+    )
+    df_incremental_flows = DataFrame(
+        step = 1:timesteps,
+        month = months,
+        stage = depletion_stages,
+        ps_equivalent_reservoir = equivalent_reservoir
+    )
+    df_generation = DataFrame(
+        step = 1:timesteps,
+        month = months,
+        stage = depletion_stages,
+        ps_equivalent_reservoir = equivalent_reservoir
+    )
+    df_evaporation = DataFrame(
+        step = 1:timesteps,
+        month = months,
+        stage = depletion_stages,
+        ps_equivalent_reservoir = equivalent_reservoir
+    )
+
+    for (name, plant) in hidroplants
+
+        df_reservoir[!,name] = plant.reservoir_timeline
+        df_irrigation[!,name] = repeat(plant.irrigation, outer = years+1)[1:timesteps]
+        df_turbining[!,name] = plant.turbine_timeline
+        df_spillage[!,name] = plant.spill_timeline
+        df_incremental_flows[!,name] = incremental_natural_flows[name]
+        df_generation[!,name] = plant.generation_timeline
+        df_evaporation[!,name] = plant.evaporation_timeline
+
+    end
+
+    CSV.write(joinpath("results",case_name,case_name*"_reservoir_hm3.csv"),df_reservoir)
+    CSV.write(joinpath("results",case_name,case_name*"_irrigation_m3_per_sec.csv"),df_irrigation)
+    CSV.write(joinpath("results",case_name,case_name*"_turbining_m3_per_sec.csv"),df_turbining)
+    CSV.write(joinpath("results",case_name,case_name*"_spillage_m3_per_sec.csv"),df_spillage)
+    CSV.write(joinpath("results",case_name,case_name*"_incremental_flow_m3_per_sec.csv"),df_incremental_flows)
+    CSV.write(joinpath("results",case_name,case_name*"_generation_MW.csv"),df_generation)
+    CSV.write(joinpath("results",case_name,case_name*"_evaporation_m3_per_sec.csv"),df_evaporation)
+
+    return "Simulation complete, results available at ./results/$(case_name)"
+end
+
 """
 Stores variables and state of a hydroplant element.
 """
@@ -45,19 +200,17 @@ Stores variables and state of a hydroplant element.
 
 end
 
-function _generation_regression(name::Union{String,String15})
-    file_path = joinpath("generation_data",name*".csv")
+function _generation_regression(input_folder::String,name::Union{String,String15})
+    file_path = joinpath(input_folder,"generation_data",name*".csv")
     try
         df_generation = DataFrame(CSV.File(file_path))[:,["QTUR","VOLF","GHID"]]
         fm = @formula(GHID ~ QTUR + VOLF)
         sm = lm(fm, df_generation)
-        println("$(name) generation regression r2: $(r2(sm))")
         return coef(sm)
     catch
         df_generation = DataFrame(CSV.File(file_path))[:,["QTURB","VOLF","GHIDR"]]
         fm = @formula(GHIDR ~ QTURB + VOLF)
         sm = lm(fm, df_generation)
-        println("$(name) generation regression r2: $(r2(sm))")
         return coef(sm)
     end
     
@@ -79,10 +232,10 @@ end
 """
 Reads flow time series and generates statistical data about flows for later stochastic generation of random values.
 """
-function flow_compiler(folder_path::String)
+function flow_compiler(input_folder::String)
+    folder_path = joinpath(input_folder,"flow_data")
     files = readdir(folder_path)
-    names = [file_name[1:end-4] for file_name in files]
-    df_topology = DataFrame(CSV.File("topology.csv"))
+    df_topology = DataFrame(CSV.File(joinpath(input_folder,"topology.csv")))
     df_flows = Dict()
     """
     df_std = DataFrame(Dict(name => zeros(12) for name in names))
@@ -113,27 +266,28 @@ end
 """
 Loads hidroplants parameters from files to structs. Returns dictionary of `hidroplant`.
 """
-function loads_hidroplants(file_path::String; reservoir_start::String = "min",paraibuna_start::Dict = Dict())
+function loads_hidroplants(input_folder::String)
+    file_path = joinpath(input_folder,"hidroplants_params.csv")
     df = DataFrame(CSV.File(file_path))
     hidroplants = Dict()
     for i in 1:size(df,1)
         name = df[i,"name"]
-        if name in [name[1:end-4] for name in readdir("irrigation_data")]
-            irrigation = vec(readdlm(joinpath("irrigation_data",name*".csv"), '\t', Float64))
+        if name in [name[1:end-4] for name in readdir(joinpath(input_folder,"irrigation_data"))]
+            irrigation = vec(readdlm(joinpath(input_folder,"irrigation_data",name*".csv"), '\t', Float64))
         else
             irrigation = zeros(12)
         end
         
-        if name in [name[1:end-4] for name in readdir("generation_data")]
-            poly_generation = _generation_regression(name)
+        if name in [name[1:end-4] for name in readdir(joinpath(input_folder,"generation_data"))]
+            poly_generation = _generation_regression(input_folder,name)
         else
             poly_generation = "nothing"
         end
         
-        if name in [name[1:end-4] for name in readdir(joinpath("evaporation_data","coefficients"))]
-            evaporation_coef = vec(readdlm(joinpath("evaporation_data","coefficients",name*".csv"), '\t', Float64))
-            if name in [name[1:end-4] for name in readdir(joinpath("evaporation_data","polynomials"))]
-                polynomials = readdlm(joinpath("evaporation_data","polynomials",name*".csv"), '\t', Float64)
+        if name in [name[1:end-4] for name in readdir(joinpath(input_folder,"evaporation_data","coefficients"))]
+            evaporation_coef = vec(readdlm(joinpath(input_folder,"evaporation_data","coefficients",name*".csv"), '\t', Float64))
+            if name in [name[1:end-4] for name in readdir(joinpath(input_folder,"evaporation_data","polynomials"))]
+                polynomials = readdlm(joinpath(input_folder,"evaporation_data","polynomials",name*".csv"), '\t', Float64)
                 poly_volume_quote = vec(polynomials[1,:])
                 poly_quote_area = vec(polynomials[2,:])
             else
@@ -145,17 +299,9 @@ function loads_hidroplants(file_path::String; reservoir_start::String = "min",pa
             poly_volume_quote = "nothing"
             poly_quote_area = "nothing"
         end
-        if name in keys(paraibuna_start)
-            volume = df[i,"min_reservoir"] + paraibuna_start[name]*(df[i,"max_reservoir"] - df[i,"min_reservoir"])
-        elseif reservoir_start == "max"
-            volume = df[i,"max_reservoir"]
-        elseif reservoir_start == "mean"
-            volume = (df[i,"max_reservoir"] + df[i,"min_reservoir"] + df[i,"min_reservoir_ope"]*(df[i,"max_reservoir"] - df[i,"min_reservoir"]))/2
-        elseif reservoir_start == "min"
-            volume = df[i,"min_reservoir"] + df[i,"min_reservoir_ope"]*(df[i,"max_reservoir"] - df[i,"min_reservoir"])
-        end
-        @show name
-        @show (1 - df[i,"IH"])
+
+        volume = df[i,"min_reservoir"] + df[i,"volume_start"]*(df[i,"max_reservoir"] - df[i,"min_reservoir"])
+
         hidroplants[name] = hidroplant(
             name = name,
             max_spillage = df[i,"max_spillage"],
@@ -215,7 +361,6 @@ function hidro_balance(name::Union{String,String15},hidroplants::Dict,step::Int6
     gain = plant.reservoir + plant.inflow
     lost = m3_per_sec_to_hm3_per_month(plant.turbining, month)
     lost += m3_per_sec_to_hm3_per_month(plant.spilling, month)
-    #lost += plant.evaporation[month]
     plant.reservoir = gain - lost
 end
 
@@ -243,24 +388,6 @@ function updates_inflow(name::Union{String,String15}, hidroplants::Dict, increme
     incremental_flow -= hidroplants[name].evaporation
     incremental_flow -= m3_per_sec_to_hm3_per_month(hidroplants[name].irrigation[month], month)
     hidroplants[name].inflow = incremental_flow
-end
-
-"""
-Maps how much a plant will turbine depending on its reservoir and limits.
-"""
-function calculates_turbine(name::Union{String15,String},hidroplants::Dict,n::Int64)
-    plant = hidroplants[name]
-    n = 2*n - 1
-    avg_reservoir = (plant.max_reservoir + plant.min_reservoir_ope)/2
-    x = (plant.reservoir - avg_reservoir)/(avg_reservoir - plant.min_reservoir)
-    value = (sign(x)*(abs(x)^(1/n)) + 1)*(plant.max_turbining - plant.min_turbining)/2
-    if value > plant.max_turbining
-        return plant.max_turbining
-    elseif value < plant.min_turbining
-        return plant.min_turbining
-    else
-        return value
-    end
 end
 
 """
@@ -607,3 +734,24 @@ struct stochastic_flow_params
     mean::DataFrame
 end
 """
+
+"""
+Maps how much a plant will turbine depending on its reservoir and limits.
+
+function calculates_turbine(name::Union{String15,String},hidroplants::Dict,n::Int64)
+    plant = hidroplants[name]
+    n = 2*n - 1
+    avg_reservoir = (plant.max_reservoir + plant.min_reservoir_ope)/2
+    x = (plant.reservoir - avg_reservoir)/(avg_reservoir - plant.min_reservoir)
+    value = (sign(x)*(abs(x)^(1/n)) + 1)*(plant.max_turbining - plant.min_turbining)/2
+    if value > plant.max_turbining
+        return plant.max_turbining
+    elseif value < plant.min_turbining
+        return plant.min_turbining
+    else
+        return value
+    end
+end
+"""
+
+"File with utility methods for simulating Paraiba do Sul"
