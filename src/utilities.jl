@@ -5,7 +5,8 @@ using Random, Distributions, DataFrames, CSV, Statistics, DelimitedFiles, Parame
 
 Runs a simulation of Paraiba do Sul and pre determined associated plants. Arguments:
 * `case_name`: How that instance of simulation will be called. Results will be sent to a folder with that name.
-* `input_folder`
+* `input_folder`: Where input files and folders are located at. If not given, it'll be considered the same as `case_name`.
+* `verbose`: If to display simulation progress.
 """
 function run_simulation(case_name::String;input_folder::String = "",verbose::Bool = false)
     filling_mode = 1
