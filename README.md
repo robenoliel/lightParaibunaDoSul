@@ -43,7 +43,7 @@ Em seguida, serão explicadas pastas que contém dados que são utilizados como 
 
 Outros arquivos com dados de entrada na pasta `input_data` são `hidroplants_params.csv` e `topology.csv`.
 
-O arquivo `hidroplants_params.csv` contém parâmetros gerais de todas usinas, estes são:
+O arquivo `hidroplants_params.csv` contém (e **deverá sempre conter**) parâmetros gerais de **todas usinas**, estes são:
 * `max_spillage`: vertimento máximo, em `m^3/s`.
 * `min_spillage`: vertimento mínimo, em `m^3/s`.
 * `max_turbining`: turbinamento máximo, em `m^3/s`.
