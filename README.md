@@ -152,3 +152,22 @@ Alternativamente, `run_simulation` pode incluir diferentes argumentos para, por 
     * `case_name`: How that instance of simulation will be called. Results will be sent to a folder with that name.
     * `input_folder`: Where input files and folders are located at. If not given, it'll be considered the same as `case_name`.
     * `verbose`: If to display simulation progress.
+
+## Resultados
+
+Executado o simulador com sucesso, seus resultados poderão ser encontrados na pasta `results`, e no sub diretório que terá o mesmo nome que foi dado ao caso, pelo argumento `case_name` de `run_simulation`. No caso pronto de exemplo, tal nome é `study_case`.
+
+Nessa pasta, os resultados estarão agregados por variável em arquivos CSV. Estes arquivos terão como prefixo o valor de `case_name`, e seus sufixos indentificarão:
+* `evaporation_m3_per_sec`: resultados de evaporação, em `m^3/s`.
+* `generation_MW`: resultados de geração, em `MW`.
+* `incremental_flow_m3_per_sec`: vazões incrementais, em `m^3/s`.
+* `irrigation_m3_per_sec`: uso consuntivo, em `m^3/s`.
+* `reservoir_Hm3`: resultados de reservatório, em `Hm^3`.
+* `spillage_m3_per_sec`: resultados de vertimento, em `m^3/s`.
+* `turbining_m3_per_sec`: resultados de turbinamento, em `m^3/s`.
+
+Nos arquivos de resultado, além das variáveis específicas de cada arquivo, estão disponíveis as colunas:
+* `step`: estágio da simulação.
+* `month`: número do mês correspondente ao estágio.
+* `stage`: estágio de deplecionamento do sistema, de 1 a 4.
+* `ps_equivalent_reservoir`: reservatório útil equivalente do Sistema da Paraíba do Sul, de 0 a 1 (0 a 100%).
