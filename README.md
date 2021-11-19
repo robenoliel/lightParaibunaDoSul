@@ -2,9 +2,9 @@
 
 ## Introdução
 
-Este projeto tem como desenvolver um simulador da operação do Sistema Hidráulico da Paraíba do Sul fiel a regularmentações e restrições especiais definidas pela Agência Nacional de Águas **(to do: adicionar ref a resoluções)**, que comunmente não podem ser modeladas propriamente em programas mais gerais. A aplicação desse simulador permitirá experimentação e validação com respeito a possíveis novas políticas e estratégias de despacho que visem otimizar este sistema específico.
+Este projeto tem como desenvolver um simulador da operação do Sistema Hidráulico da Paraíba do Sul fiel a regularmentações e restrições especiais definidas pela Agência Nacional de Águas, disponíveis [aqui](http://www.inea.rj.gov.br/ar-agua-e-solo/seguranca-hidrica/resolucoes-ana/), que comunmente não podem ser modeladas propriamente em programas mais gerais. A aplicação desse simulador permitirá experimentação e validação com respeito a possíveis novas políticas e estratégias de despacho que visem otimizar este sistema específico.
 
-## Identificação de plantas
+## Identificação de Plantas
 
 O Sistema Hidráulico da Paraíba do Sul e suas periferias possuem usinas de interesse bem definidas. Neste simulador, as usinas consideradas serão constantemente identificadas por uma `String` particular, que deverão ser respeitadas a todo momento como código de identificação. Tais usinas e seus respectivos códigos são:
 * Fontes A: `fontes_a`
@@ -31,14 +31,14 @@ O Sistema Hidráulico da Paraíba do Sul e suas periferias possuem usinas de int
 
 O simulador foi desenvolvido utilizando como referência projetos do mesmo sistema modelados em dois programas independentes: SUISHI e SDDP. Os arquivos de tais projetos podem ser encontrados respectivamente nas pastas `SUISHI` e `1_PMO_Agosto_ONS_Paraiba_Sul_suishi_2017`. O simulador, apesar de usar seus dados como base, não utiliza diretamente os arquivos destas pastas, eles foram incluídos somente com fins de referência.
 
-## Dados de entrada
+## Dados de Entrada
 
 Em seguida, serão explicadas pastas que contém dados que são utilizados como entrada para o simulador e seus respectivos conteúdos. A princípio, todos os dados estão localizados no diretório `input_data`, porém esse nome pode ser alterado e passado como argumento quando a simulação for executada. **Enfatiza-se a importância de que arquivos CSV da mesma natureza respeitem mutuamente suas dimensões, especialmente se tal eixo representa uma grandeza temporal.** Por exemplo, os arquivos da pasta `flow_data` devem conter o mesmo número de linhas, ou seja, todas as usinas devem ter o mesmo número de anos de vazão natural histórica.
 * `evaporation_data`
   * `coefficients`: contém arquivos CSV com uma coluna contendo os coeficientes de evaporação de cada mês (ordenado de 1 a 12) em `mm/Mês`. Se o arquivo para uma planta espefícica estiver ausente, seus valores serão considerados zero.
   * `polynomials`: Para algumas usinas com reservatório, é pertinente considerar sua área no momento de calcular sua evaporação. Para tal, os coeficientes dos polinômios Volume X Cota e Cota X Área são providos, para cada planta, na forma de um arquivo CSV com os coeficientes dispostos respectivamente na primeira e segunda linha, em ordem crescente de expoente da esquerda para a direita. Caso o arquivo para uma usina específica esteja ausente, sua área será considerada constante de acordo com o informado no arquivo `hidroplants_params.csv`. O polinômio deve considerar volume em `Hm^3`, cota em `m`, e Área em `Km^2`.
-* `flow_data`: dados históricos de vazão natural para serem utilizados na simulação de maneira determinística. Dados estão dispostos, para cada usina, em um arquivo CSV com colunas correspondendo a meses (ordenado de 1 a 12) e linhas a anos (ordem crescente), em `m^3/s`. **Deve ser fornecido um arquivo para cada planta, mesmo que este seja nulo.**
-* `generation_data`: os arquivos CSV nessa pasta seguem precisamente o modelo de arquivo de saída do SUISHI. Apesar dos arquivos estarem completos por fins de simplicidade, apenas as colunas `QTUR` (vazão turbinada em `m^3/s`), `VOLF` (volume final em `Hm^3`) e `GHID` (geração em `MW`) são consideradas na prática.
+* `flow_data`: dados históricos de vazão natural para serem utilizados na simulação de maneira determinística. Dados estão dispostos, para cada usina, em um arquivo CSV com colunas correspondendo a meses (ordenado de 1 a 12) e linhas a anos (ordem crescente), em `m^3/s`. Caso o arquivo esteja ausente, os valores para usina serão considerados zero.
+* `generation_data`: os arquivos CSV nessa pasta seguem o modelo de arquivo de saída do SUISHI, pois são, de fato, exatamente isso. Apesar dos arquivos estarem completos por fins de simplicidade, apenas as colunas `QTUR` (vazão turbinada em `m^3/s`), `VOLF` (volume final em `Hm^3`) e `GHID` (geração em `MW`) são consideradas na prática.
 * `irrigation_data`: arquivos CSV contendo dados referentes ao uso consuntivo para cada usina, dispostos para cada mês em uma linha (ordenado de 1 a 12) em `m^3/s`. Caso o arquivo esteja ausente, os valores para usina serão considerados zero.
 
 Outros arquivos com dados de entrada na pasta `input_data` são `hidroplants_params.csv` e `topology.csv`.
@@ -64,6 +64,8 @@ Já o arquivo `topology.csv` determina uma usina e quem está a sua jusante, por
 
 ## Metodologia
 
+### Operação Básica
+
 Em um primeiro momento na simulação, as vazões incrementais determinísticas de todas as usinas são calculadas substraindo-se a vazão natural de sua planta a montante de sua própria. Isto já é realizado para todo o domínio temporal da simulação, uma vez que estes valores são pré determinados.
 
 Para cada usina, é calculada sua afuência de maneira:
@@ -79,7 +81,7 @@ Onde:
 * `Ev`: Evaporação, calculada da maneira que foi explicitada na sessão de "Arquivos de entrada".
 * `C`: Uso consuntivo, pré determinado.
 
-O valor vertido e turbinado dependerão das condições do sistema, apesar do comportamento básico de uma usina com reservatório no simulador ser sempre turbinar o valor mínimo estabelecido. Em geral, vertimento ocorre apenas quando o sistema precisa liberar mais volume do que o normal, mas o máximo de turbinamento já foi atingido. Caso o reservatório esteja em seu mínimo útil, será liberado apenas o novo volume afluente. Já caso esteja em seu máximo, maior volume será liberado para evitar enchentes. Desta maneira, o reservatório é atualizado de forma que:
+O valor vertido e turbinado dependerão das condições do sistema, apesar do comportamento básico de uma usina com reservatório no simulador ser sempre turbinar o valor mínimo estabelecido. Em geral, vertimento ocorre apenas quando o sistema precisa liberar mais volume do que o normal, mas o máximo de turbinamento já foi atingido. Caso o reservatório esteja em seu mínimo operacional, será liberado apenas o novo volume afluente. Já caso esteja em seu máximo, maior volume será liberado para evitar enchentes. Desta maneira, o reservatório é atualizado de forma que:
 
 $$
 R(t) = R(t-1)+Af-V-T
@@ -97,4 +99,23 @@ $$
 T+V=Af
 $$
 
-Em cada passo da simulação, o programa simula a operação de cada uma das usinas "de cima para baixo", isto é, começando pelas usinas mais a montante, para que a afluência das usinas ajusantes possam ser calculadas de acordo.
+Além das variáveis já mencionadas, é obviamente de grande interesse o cálculo do valor de geração de cada usina. Isso pode ser feito de diferentes maneiras, por exemplo, o SUISHI a calcula analiticamente considerando diversas variáveis. Por fins de simplicidade, optou-se por tomar um caminho mais simples, mas que ao mesmo tempo mimetiza o método completo do SUISHI. Isto foi feito considerando seus resultados de geração, e realizando uma regressão linear da mesma em função de seu volume e turbinamento. O resultado é, para cada usina, uma função que replica o metódo do SUISHI com precisão superior a 99%. Já para usinas sem reservatório, ou sem dados de geração disponíveis, é feito um cálculo diretamente pelo coeficiente médio de geração.
+
+Em cada passo da simulação, o programa simula a operação de cada uma das usinas "de cima para baixo", isto é, começando pelas usinas mais a montante, para que a afluência das usinas ajusantes possam ser calculadas de acordo. Os estados finais do passo são, então, considerados como as condições iniciais do seguinte.
+
+### Operação Especial do Sistema da Paraíba do Sul
+
+O Sistema da Paraíba do Sul tem operação diferente da mencionada anteriormente, pois suas usinas devem ser capazes de se articular em conjunto para atender a determinadas restrições sob um acervo pré definido de regras, o que torna seu comportamento consideravelmente mais complexo do que os demais. As principais regras operativas especiais deste sistema estão disponíveis [aqui](http://www.inea.rj.gov.br/wp-content/uploads/2020/04/1382-2015.pdf), na Resolução Conjunta ANA/DAEE/IGAM/INEA nº 1.382, de 2015, que será explorada daqui em diante.
+
+Vale atentar-se ao tópico I do Art. 1<sup>o</sup>, que define vazões mínimas. Para que sejam respeitadas tais vazões, mesmo que a usina em questão não possua reservatório ou afluência para tal, o simulador implementa um método recursivo que requisita volume extra para as plantas a montante, que atenderá ao pedido através de um incremento de afluência, dentro de seus limites operativos. O volume extra requisitado será exatamente o necessário para que a usina em déficit atinja seu mínimo estabelecido pela resolução.
+
+Ao realizar o procedimento descrito no último parágrafo, os limites operativos mencionados respeitarão a risca os estágios de deplecionamento dispostos no item V do Art. 1<sup>o</sup>. Além dos três estágios oficiais apresentados, o simulador define um quarto estágio, que representa quando, não somente Funil, Santa Branca, e Jaguari já chegaram ao mínimo de seu terceiro estágio, como também é necessário  ativar o Art. 2<sup>o</sup>, que permite em casos extremos Paraibuna violar seu volume operacional mínimo em 425 Hm<sup>3</sup>.
+
+Outro caso excepcional é o descrito no tópico IV c) do Art. 1<sup>o</sup>, isto é, quando o reservatório equivalente de Paraíba do Sul supera 80% de seu volume útil. Nesse caso, semelhante a quando há deplecionamento, Santa Cecília irá requisitar para as usinas a montante volume suficiente para alçancar sua defluência máxima. Tais usinas irão, então, liberar o que tiverem disponível para atender a solicitação.
+
+Santa Cecília, por sua vez, irá gerenciar seu vertimento e turbinamento de acordo com os limites e prioridades definidos no tópico IV do Art. 1<sup>o</sup>.
+
+## Execução
+
+O simulador foi implementado inteiramente em Julia, portanto, tenha certeza de ter ele instalado. Caso não tenha, seu download
+

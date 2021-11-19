@@ -1,16 +1,41 @@
 using Random, Distributions, DataFrames, CSV, Statistics, DelimitedFiles, Parameters, Dates, Polynomials, GLM
 
-function run_simulation(case_name::String,input_folder::String;verbose::Bool = false)
+"""
+    run_simulation(case_name::String;input_folder::String = "",verbose::Bool = false)
+
+Runs a simulation of Paraiba do Sul and pre determined associated plants. Arguments:
+* `case_name`: How that instance of simulation will be called. Results will be sent to a folder with that name.
+* `input_folder`
+"""
+function run_simulation(case_name::String;input_folder::String = "",verbose::Bool = false)
     filling_mode = 1
     eighty_policiy = true
 
+    input_folder = input_folder == "" ? case_name : input_folder
+
+    if !isdir(input_folder)
+        throw(SystemError("The $(input_folder) folder is missing. Check its spelling or specify a different folder."))
+    end
+
+    for folder in ["evaporation_data","flow_data","generation_data","irrigation_data"]
+        if !isdir(joinpath(input_folder,folder))
+            throw(SystemError("The $(folder) folder is missing. Make sure to include it under the right format."))
+        end
+    end
+
+    for file in ["hidroplants_params.csv","topology.csv"]
+        if !isfile(joinpath(input_folder,file))
+            throw(SystemError("The $(file) file is missing. Make sure to include it under the right format."))
+        end
+    end
+
     if verbose println("########### SIMULATION START ###########") end
     #loads incremental flows for simulation
-    incremental_natural_flows = flow_compiler(joinpath(input_folder))
+    hidroplants = loads_hidroplants(input_folder)
+    incremental_natural_flows = flow_compiler(joinpath(input_folder),hidroplants)
     timesteps = size(incremental_natural_flows["funil"],1)
     years = Int64(trunc(timesteps/12))
 
-    hidroplants = loads_hidroplants(input_folder)
     depletion_stages = []
     equivalent_reservoir = []
     months = []
@@ -230,15 +255,12 @@ end
 """
 Reads flow time series and generates statistical data about flows for later stochastic generation of random values.
 """
-function flow_compiler(input_folder::String)
+function flow_compiler(input_folder::String,hidroplants::Dict)
     folder_path = joinpath(input_folder,"flow_data")
     files = readdir(folder_path)
     df_topology = DataFrame(CSV.File(joinpath(input_folder,"topology.csv")))
     df_flows = Dict()
-    """
-    df_std = DataFrame(Dict(name => zeros(12) for name in names))
-    df_mean = DataFrame(Dict(name => zeros(12) for name in names))
-    """
+    length = 0
     for file in files
         name = file[1:end-4]
         data = read_flow(joinpath(folder_path,file))
@@ -249,13 +271,15 @@ function flow_compiler(input_folder::String)
                 data -= upstream
             end
         end
-        """
-        for j in 1:size(data,2)
-            df_std[j,file[1:end-4]] = std(data[end-horizon+1:end,j])
-            df_mean[j,file[1:end-4]] = mean(data[end-horizon+1:end,j])
-        end
-        """
+        
         df_flows[name] = data
+        length = size(data)
+    end
+
+    for name in keys(hidroplants)
+        if !(name in keys(df_flows))
+            df_flows[name] = zeros(length)
+        end
     end
 
     return df_flows
@@ -698,8 +722,6 @@ function paraibuna_do_sul_depletion_update(hidroplants::Dict,month::Int64,previo
     return stage
 end
 
-
-
 """
 function _stochastic_flow_generator(params::stochastic_flow_params,name::String15, month::Int, bias::Float64)
     mean = params.mean[month,name]
@@ -751,3 +773,5 @@ end
 """
 
 "File with utility methods for simulating Paraiba do Sul"
+
+
