@@ -111,8 +111,8 @@ function run_simulation(case_name::String;input_folder::String = "",verbose::Boo
         if verbose println("# Time step $(step) of simulation has been successfully completed.") end
     end
 
-    if !isdir(joinpath("results",case_name))
-        mkdir(joinpath("results",case_name))
+    if !isdir(joinpath(case_name,"results"))
+        mkdir(joinpath(case_name,"results"))
     end
 
     df_reservoir = DataFrame(
@@ -170,15 +170,14 @@ function run_simulation(case_name::String;input_folder::String = "",verbose::Boo
 
     end
 
-    CSV.write(joinpath("results",case_name,case_name*"_reservoir_hm3.csv"),df_reservoir)
-    CSV.write(joinpath("results",case_name,case_name*"_irrigation_m3_per_sec.csv"),df_irrigation)
-    CSV.write(joinpath("results",case_name,case_name*"_turbining_m3_per_sec.csv"),df_turbining)
-    CSV.write(joinpath("results",case_name,case_name*"_spillage_m3_per_sec.csv"),df_spillage)
-    CSV.write(joinpath("results",case_name,case_name*"_incremental_flow_m3_per_sec.csv"),df_incremental_flows)
-    CSV.write(joinpath("results",case_name,case_name*"_generation_MW.csv"),df_generation)
-    CSV.write(joinpath("results",case_name,case_name*"_evaporation_m3_per_sec.csv"),df_evaporation)
+    CSV.write(joinpath(case_name,"results",case_name*"_reservoir_hm3.csv"),df_reservoir)
+    CSV.write(joinpath(case_name,"results",case_name*"_turbining_m3_per_sec.csv"),df_turbining)
+    CSV.write(joinpath(case_name,"results",case_name*"_spillage_m3_per_sec.csv"),df_spillage)
+    CSV.write(joinpath(case_name,"results",case_name*"_incremental_flow_m3_per_sec.csv"),df_incremental_flows)
+    CSV.write(joinpath(case_name,"results",case_name*"_generation_MW.csv"),df_generation)
+    CSV.write(joinpath(case_name,"results",case_name*"_evaporation_m3_per_sec.csv"),df_evaporation)
 
-    return "Simulation complete, results available at ./results/$(case_name)"
+    return "Simulation complete, results available at ./$(case_name)/results"
 end
 
 """
