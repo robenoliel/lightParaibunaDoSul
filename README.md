@@ -33,7 +33,7 @@ O simulador foi desenvolvido utilizando como referência projetos do mesmo siste
 
 ## Dados de Entrada
 
-Em seguida, serão explicadas pastas que contém dados que são utilizados como entrada para o simulador e seus respectivos conteúdos. A princípio, todos os dados estão localizados no diretório `study_case`, porém esse nome pode ser alterado e passado como argumento quando a simulação for executada. **Enfatiza-se a importância de que arquivos CSV da mesma natureza respeitem mutuamente suas dimensões, especialmente se tal eixo representa uma grandeza temporal.** Por exemplo, os arquivos da pasta `flow_data` devem conter o mesmo número de linhas, ou seja, todas as usinas devem ter o mesmo número de anos de vazão natural histórica.
+Em seguida, serão explicadas pastas que contém dados que são utilizados como entrada para o simulador e seus respectivos conteúdos. A princípio, todos os dados estão localizados no diretório `example`, porém esse nome pode ser alterado e passado como argumento quando a simulação for executada. **Enfatiza-se a importância de que arquivos CSV da mesma natureza respeitem mutuamente suas dimensões, especialmente se tal eixo representa uma grandeza temporal.** Por exemplo, os arquivos da pasta `flow_data` devem conter o mesmo número de linhas, ou seja, todas as usinas devem ter o mesmo número de anos de vazão natural histórica.
 * `evaporation_data`
   * `coefficients`: contém arquivos CSV com uma coluna contendo os coeficientes de evaporação de cada mês (ordenado de 1 a 12) em `mm/Mês`. Se o arquivo para uma planta espefícica estiver ausente, seus valores serão considerados zero.
   * `polynomials`: Para algumas usinas com reservatório, é pertinente considerar sua área no momento de calcular sua evaporação. Para tal, os coeficientes dos polinômios Volume X Cota e Cota X Área são providos, para cada planta, na forma de um arquivo CSV com os coeficientes dispostos respectivamente na primeira e segunda linha, em ordem crescente de expoente da esquerda para a direita. Caso o arquivo para uma usina específica esteja ausente, sua área será considerada constante de acordo com o informado no arquivo `hidroplants_params.csv`. O polinômio deve considerar volume em `Hm^3`, cota em `m`, e Área em `Km^2`.
@@ -135,7 +135,7 @@ $ activate .
 Feito isso, o simulador pode ser executado localmente importando-se o módulo `simulatorParaibaDoSul` e chamando o método `run_simulation`. Para tal, execute em um script de Julia ou no Julia REPL:
 
 ```
-$ using simulatorParaibaDoSul; run_simulation("study_case")
+$ using simulatorParaibaDoSul; run_simulation("example")
 ```
 
 Por comodidade, o código acima já foi incluído no arquivo `run.jl`, que pode ser executado no Julia REPL com:
@@ -156,7 +156,7 @@ Alternativamente, `run_simulation` pode incluir diferentes argumentos para, por 
 
 ## Resultados
 
-Executado o simulador com sucesso, seus resultados poderão ser encontrados na pasta `results`, e no sub diretório que terá o mesmo nome que foi dado ao caso, pelo argumento `case_name` de `run_simulation`. No caso pronto de exemplo, tal nome é `study_case`.
+Executado o simulador com sucesso, seus resultados poderão ser encontrados na pasta `results`, e no sub diretório que terá o mesmo nome que foi dado ao caso, pelo argumento `case_name` de `run_simulation`. No caso pronto de exemplo, tal nome é `example`.
 
 Nessa pasta, os resultados estarão agregados por variável em arquivos CSV. Estes arquivos terão como prefixo o valor de `case_name`, e seus sufixos indentificarão:
 * `evaporation_m3_per_sec`: resultados de evaporação, em `m^3/s`.
