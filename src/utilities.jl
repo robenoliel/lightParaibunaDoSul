@@ -177,7 +177,7 @@ function run_simulation(case_name::String;input_folder::String = "",verbose::Boo
     CSV.write(joinpath(case_name,"results",case_name*"_generation_MW.csv"),df_generation)
     CSV.write(joinpath(case_name,"results",case_name*"_evaporation_m3_per_sec.csv"),df_evaporation)
 
-    return "Simulation complete, results available at ./$(case_name)/results"
+    return "Simulation complete, results available at $(case_name)/results"
 end
 
 """
