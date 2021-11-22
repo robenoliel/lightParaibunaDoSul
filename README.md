@@ -73,6 +73,7 @@ Para cada usina, é calculada sua afuência de maneira:
 $$
 Af = Q_{inc}+V_{mont}+T_{mont}-Ev-C
 $$
+
 Onde:
 * `Af`: Afluência.
 * `Qinc`: Vazão incremental.
