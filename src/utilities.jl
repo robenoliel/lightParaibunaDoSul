@@ -175,12 +175,22 @@ function run_simulation(case_name::String;verbose::Bool = true)
 
     end
 
-    CSV.write(joinpath(case_name,"results",case_name*"_reservoir_hm3.csv"),df_reservoir)
-    CSV.write(joinpath(case_name,"results",case_name*"_turbining_m3_per_sec.csv"),df_turbining)
-    CSV.write(joinpath(case_name,"results",case_name*"_spillage_m3_per_sec.csv"),df_spillage)
-    CSV.write(joinpath(case_name,"results",case_name*"_incremental_flow_m3_per_sec.csv"),df_incremental_flows)
-    CSV.write(joinpath(case_name,"results",case_name*"_generation_MW.csv"),df_generation)
-    CSV.write(joinpath(case_name,"results",case_name*"_evaporation_m3_per_sec.csv"),df_evaporation)
+    if findlast("\\",case_name) !== nothing || findlast("/",case_name) !== nothing
+        if findlast("\\",case_name) !== nothing && findlast("/",case_name) !== nothing
+            bar_pos = findlast("\\",case_name) > findlast("/",case_name) ? findlast("\\",case_name) : findlast("/",case_name)
+        else
+            bar_pos = findlast("\\",case_name) !== nothing ? findlast("\\",case_name) : findlast("/",case_name)
+        end
+        name = case_name[bar_pos[end]+1:end]
+    else
+        name = case_name
+    end
+    CSV.write(joinpath(case_name,"results",name*"_reservoir_hm3.csv"),df_reservoir)
+    CSV.write(joinpath(case_name,"results",name*"_turbining_m3_per_sec.csv"),df_turbining)
+    CSV.write(joinpath(case_name,"results",name*"_spillage_m3_per_sec.csv"),df_spillage)
+    CSV.write(joinpath(case_name,"results",name*"_incremental_flow_m3_per_sec.csv"),df_incremental_flows)
+    CSV.write(joinpath(case_name,"results",name*"_generation_MW.csv"),df_generation)
+    CSV.write(joinpath(case_name,"results",name*"_evaporation_m3_per_sec.csv"),df_evaporation)
 
     out = "Simulation complete, results available at: $(case_name)/results"
     println(out)

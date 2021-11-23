@@ -123,10 +123,10 @@ O simulador foi implementado inteiramente em Julia v1.6.3, portanto, tenha certe
 Após a instalação e a inclusão de Julia ao `path` do sistema, execute a simulação navegando até a pasta do projeto e executando no terminal:
 
 ```
-$ julia --project run.jl "example"
+julia --project run.jl "example"
 ```
 
-Alternativamente, o parâmetro `"example"` poderá ser substituído por qualquer que seja o nome do diretório do projeto.
+Alternativamente, o parâmetro `"example"` poderá ser substituído por qualquer que seja o caminho para o diretório do projeto.
 
 ## Resultados
 

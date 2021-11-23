@@ -19,6 +19,6 @@ input_folder = "../$(case_name)"
     end
 
     @testset "Runs simulation" begin
-        @test SPS.run_simulation(input_folder) == "Simulation complete, results available at $(input_folder)/results"
+        @test SPS.run_simulation(input_folder) == "Simulation complete, results available at: $(input_folder)/results"
     end
 end
