@@ -118,41 +118,15 @@ Santa Cecília, por sua vez, irá gerenciar seu vertimento e turbinamento de aco
 
 ## Execução
 
-O simulador foi implementado inteiramente em Julia, portanto, tenha certeza de ter ele instalado. Caso não tenha, seu download pode ser feito [aqui](https://julialang.org/downloads/).
+O simulador foi implementado inteiramente em Julia v1.6.3, portanto, tenha certeza de ter uma versão compatível instalada. Caso não tenha, seu download pode ser feito [aqui](https://julialang.org/downloads/).
 
-Após a instalação e a inclusão de Julia ao `path` do sistema, navegue até a pasta do projeto e execute no terminal:
-
-```
-$ julia
-```
-
-Isto ativará o Julia REPL. Em seguida, para acionar o gerenciador de pacotes, digite `]` e execute para ativar o ambiente do projeto:
+Após a instalação e a inclusão de Julia ao `path` do sistema, execute a simulação navegando até a pasta do projeto e executando no terminal:
 
 ```
-$ activate .
+$ julia --project run.jl "example"
 ```
 
-Feito isso, o simulador pode ser executado localmente importando-se o módulo `simulatorParaibaDoSul` e chamando o método `run_simulation`. Para tal, execute em um script de Julia ou no Julia REPL:
-
-```
-$ using simulatorParaibaDoSul; run_simulation("example")
-```
-
-Por comodidade, o código acima já foi incluído no arquivo `run.jl`, que pode ser executado no Julia REPL com:
-
-```
-$ include("run.jl")
-```
-
-Alternativamente, `run_simulation` pode incluir diferentes argumentos para, por exemplo, definir diferentes nomes de diretórios de dados para entrada e saída:
-
-
-    run_simulation(case_name::String;input_folder::String = "",verbose::Bool = false)
-
-    Runs a simulation of Paraiba do Sul and pre determined associated plants. Arguments:
-    * `case_name`: How that instance of simulation will be called. Results will be sent to a folder with that name.
-    * `input_folder`: Where input files and folders are located at. If not given, it'll be considered the same as `case_name`.
-    * `verbose`: If to display simulation progress.
+Alternativamente, o parâmetro `"example"` poderá ser substituído por qualquer que seja o nome do diretório do projeto.
 
 ## Resultados
 

@@ -1,39 +1,36 @@
 using Random, Distributions, DataFrames, CSV, Statistics, DelimitedFiles, Parameters, Dates, Polynomials, GLM
 
 """
-    run_simulation(case_name::String;input_folder::String = "",verbose::Bool = false)
+    run_simulation(case_name::String;verbose::Bool = true)
 
 Runs a simulation of Paraiba do Sul and pre determined associated plants. Arguments:
-* `case_name`: How that instance of simulation will be called. Results will be sent to a folder with that name.
-* `input_folder`: Where input files and folders are located at. If not given, it'll be considered the same as `case_name`.
+* `case_name`: Project name, folder with input data must be called like this.
 * `verbose`: If to display simulation progress.
 """
-function run_simulation(case_name::String;input_folder::String = "",verbose::Bool = false)
+function run_simulation(case_name::String;verbose::Bool = true)
     filling_mode = 1
     eighty_policiy = true
 
-    input_folder = input_folder == "" ? case_name : input_folder
-
-    if !isdir(input_folder)
-        throw(SystemError("The $(input_folder) folder is missing. Check its spelling or specify a different folder."))
+    if !isdir(case_name)
+        throw(SystemError("The $(case_name) folder is missing. Check its spelling or specify a different folder."))
     end
 
     for folder in ["evaporation_data","flow_data","generation_data","irrigation_data"]
-        if !isdir(joinpath(input_folder,folder))
+        if !isdir(joinpath(case_name,folder))
             throw(SystemError("The $(folder) folder is missing. Make sure to include it under the right format."))
         end
     end
 
     for file in ["hidroplants_params.csv","topology.csv"]
-        if !isfile(joinpath(input_folder,file))
+        if !isfile(joinpath(case_name,file))
             throw(SystemError("The $(file) file is missing. Make sure to include it under the right format."))
         end
     end
 
-    if verbose println("########### SIMULATION START ###########") end
+    if verbose println("########### Simulation Start ###########") end
     #loads incremental flows for simulation
-    hidroplants = loads_hidroplants(input_folder)
-    incremental_natural_flows = flow_compiler(joinpath(input_folder),hidroplants)
+    hidroplants = loads_hidroplants(case_name)
+    incremental_natural_flows = flow_compiler(joinpath(case_name),hidroplants)
     timesteps = size(incremental_natural_flows["funil"],1)
     years = Int64(trunc(timesteps/12))
 
@@ -108,7 +105,15 @@ function run_simulation(case_name::String;input_folder::String = "",verbose::Boo
         push!(depletion_stages,stage)
         push!(equivalent_reservoir, paraibuna_do_sul_equivalent_reservoir_status(hidroplants))
         updates_registries(hidroplants, incremental_natural_flows, step)
-        if verbose println("# Time step $(step) of simulation has been successfully completed.") end
+
+        if verbose
+            if step != 1
+                print("\u1b[1F")
+            end
+            print("Simulation progress: $(100*step/timesteps)%")
+            print("\u1b[0K")
+            println()
+        end
     end
 
     if !isdir(joinpath(case_name,"results"))
@@ -177,7 +182,9 @@ function run_simulation(case_name::String;input_folder::String = "",verbose::Boo
     CSV.write(joinpath(case_name,"results",case_name*"_generation_MW.csv"),df_generation)
     CSV.write(joinpath(case_name,"results",case_name*"_evaporation_m3_per_sec.csv"),df_evaporation)
 
-    return "Simulation complete, results available at $(case_name)/results"
+    out = "Simulation complete, results available at: $(case_name)/results"
+    println(out)
+    return out
 end
 
 """
