@@ -2,7 +2,7 @@
 
 ## Introdução
 
-Este projeto tem como desenvolver um simulador da operação do Sistema Hidráulico da Paraíba do Sul fiel a regularmentações e restrições especiais definidas pela Agência Nacional de Águas, disponíveis [aqui](http://www.inea.rj.gov.br/ar-agua-e-solo/seguranca-hidrica/resolucoes-ana/), que comunmente não podem ser modeladas propriamente em programas mais gerais. A aplicação desse simulador permitirá experimentação e validação com respeito a possíveis novas políticas e estratégias de despacho que visem otimizar este sistema específico.
+Este projeto tem como desenvolver um simulador da operação do Sistema Hidráulico da Paraíba do Sul fiel a regularmentações e restrições especiais definidas pela Agência Nacional de Águas, disponíveis [aqui](http://www.inea.rj.gov.br/ar-agua-e-solo/seguranca-hidrica/resolucoes-ana/), que comumente não podem ser modeladas propriamente em programas mais gerais. A aplicação desse simulador permitirá experimentação e validação com respeito a possíveis novas políticas e estratégias de despacho que visem otimizar este sistema específico.
 
 ## Identificação de Plantas
 
@@ -25,7 +25,7 @@ O Sistema Hidráulico da Paraíba do Sul e suas periferias possuem usinas de int
 * Tocos: `tocos`
 * Vigário: `vigario`
 
-**O simulador foi programado sob uma modelagem que considera as usinas acima, e as usinas acima somente. Ausência de dados de entrada referente a qualquer uma delas, ou uso incorreto dos indentificadores, poderá acarretar no não funcionamento do simulador, a menos que seja especificado o contrário.**
+**O simulador foi programado sob uma modelagem que considera as somente usinas acima. Ausência de dados de entrada referente a qualquer uma delas, ou uso incorreto dos indentificadores, poderá acarretar no não funcionamento do simulador, a menos que seja especificado o contrário.**
 
 ## Arquivos de Referência
 
