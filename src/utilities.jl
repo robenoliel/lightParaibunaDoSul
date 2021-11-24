@@ -739,56 +739,6 @@ function paraibuna_do_sul_depletion_update(hidroplants::Dict,month::Int64,previo
     return stage
 end
 
-"""
-function _stochastic_flow_generator(params::stochastic_flow_params,name::String15, month::Int, bias::Float64)
-    mean = params.mean[month,name]
-    std = params.std[month,name]
-    if mean == 0 && std == 0
-        return 0.0
-    end
-    d = Normal(mean + bias*std, std)
-    td = truncated(d,0.0,Inf)
-    return m3_per_sec_to_hm3_per_month(rand(td),month)
-end
-
-function loads_stochastic_incremental_flows(params::stochastic_flow_params, hidroplants::Dict, timesteps::Int64, bias::Float64)
-    flows = Dict()
-    for name in keys(hidroplants)
-        flows[name] = []
-        for step in 1:timesteps
-            month = mod(step, 12) == 0 ? 12 : mod(step, 12)
-            push!(flows[name], _stochastic_flow_generator(params, name, month, bias))
-        end
-    end
-    return flows
-end
-
-Stores statistical data about flows for later stochastic generation of random values.
-struct stochastic_flow_params
-    std::DataFrame
-    mean::DataFrame
-end
-"""
-
-"""
-Maps how much a plant will turbine depending on its reservoir and limits.
-
-function calculates_turbine(name::Union{String15,String},hidroplants::Dict,n::Int64)
-    plant = hidroplants[name]
-    n = 2*n - 1
-    avg_reservoir = (plant.max_reservoir + plant.min_reservoir_ope)/2
-    x = (plant.reservoir - avg_reservoir)/(avg_reservoir - plant.min_reservoir)
-    value = (sign(x)*(abs(x)^(1/n)) + 1)*(plant.max_turbining - plant.min_turbining)/2
-    if value > plant.max_turbining
-        return plant.max_turbining
-    elseif value < plant.min_turbining
-        return plant.min_turbining
-    else
-        return value
-    end
-end
-"""
-
 "File with utility methods for simulating Paraiba do Sul"
 
 

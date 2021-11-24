@@ -118,13 +118,37 @@ Santa Cecília, por sua vez, irá gerenciar seu vertimento e turbinamento de aco
 
 ## Execução
 
-O simulador foi implementado inteiramente em Julia v1.6.3, portanto, tenha certeza de ter uma versão compatível instalada. Caso não tenha, seu download pode ser feito [aqui](https://julialang.org/downloads/).
+O simulador foi implementado inteiramente em Julia v1.6.3 em Windows 10 64-bit, portanto, tenha certeza de ter uma versão compatível instalada. Caso não tenha, seu download pode ser feito [aqui](https://julialang.org/downloads/). Durante a instalação, selecione a opção `add Julia to PATH`.
 
-Após a instalação e a inclusão de Julia ao `path` do sistema, execute a simulação navegando até a pasta do projeto e executando no terminal:
+![rep_page](figures\julia_page.png)
+
+Caso o usuário possua mais domínio de Git, ele pode adquirir o programa realizando fork deste repositório. Caso contrário, uma alternativa é clicar em `code` e depois em `Download ZIP`, como indicado na figura:
+
+![rep_page](figures\rep_page.png)
+
+Em seguida, extraia os arquivos da pasta compactada:
+
+![rep_page](figures\exp_page.png)
+
+Para abrir o prompt de comando, clique em `Windows`+`R`, digite "cmd" na caixa que aparecer, e clique `Enter`.
+
+![rep_page](figures\run_page.png)
+
+Após o prompt ser aberto, retorne para o explorador de arquivos e copie o caminho da pasta com os arquivos extraídos do programa:
+
+![rep_page](figures\path_page.png)
+
+De volta no prompt, digite "cd", dê um espaço, e cole o caminho copiado teclando `Ctrl`+`V`, então, tecle `Enter`:
+
+![rep_page](figures\cd_page.jpg)
+
+Por fim, digite o comando abaixo e aperte `Enter` (tenha certeza que nenhum dos arquivos que será editado pelo programa esteja aberto, isto é, arquivos da pasta `results`):
 
 ```
 julia --project run.jl "example"
 ```
+
+![rep_page](figures\sim_page.png)
 
 Alternativamente, o parâmetro `"example"` poderá ser substituído por qualquer que seja o caminho para o diretório do projeto.
 
