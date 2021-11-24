@@ -120,7 +120,7 @@ Santa Cecília, por sua vez, irá gerenciar seu vertimento e turbinamento de aco
 
 O simulador foi implementado inteiramente em Julia v1.6.3 em Windows 10 64-bit, portanto, tenha certeza de ter uma versão compatível instalada. Caso não tenha, seu download pode ser feito [aqui](https://julialang.org/downloads/). Durante a instalação, selecione a opção `add Julia to PATH`.
 
-![rep_page](figures\julia_page.png)
+![rep_page](\figures\julia_page.png)
 
 Caso o usuário possua mais domínio de Git, ele pode adquirir o programa realizando fork deste repositório. Caso contrário, uma alternativa é clicar em `code` e depois em `Download ZIP`, como indicado na figura:
 
