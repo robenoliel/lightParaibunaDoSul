@@ -1,4 +1,4 @@
-module simulatorParaibaDoSul
+module SimulatorParaibaDoSul
 
 include("utilities.jl")
 

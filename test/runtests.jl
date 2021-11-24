@@ -1,12 +1,12 @@
 using Test
+using SimulatorParaibaDoSul
 
-include("../src/simulatorParaibaDoSul.jl")
-const SPS = simulatorParaibaDoSul
+const SPS = SimulatorParaibaDoSul
 
 case_name = "example"
 input_folder = "../$(case_name)"
 
-@testset "simulatorParaibaDoSul" begin
+@testset "SimulatorParaibaDoSul" begin
 
     @testset "Locates example files" begin
         @test isdir(input_folder)
