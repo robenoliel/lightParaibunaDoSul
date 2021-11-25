@@ -219,6 +219,7 @@ Stores variables and state of a hydroplant element.
     poly_volume_quote::Union{String,Array{Float64, 1}}
     poly_quote_area::Union{String,Array{Float64, 1}}
     poly_generation::Union{String,Array{Float64, 1}}
+    wait_vol::Union{String,Array{Float64, 1}}
     area::Float64                        #km²
 
     min_reservoir_ope = min_reservoir + min_reservoir_ope_per*(max_reservoir - min_reservoir) #hm³
@@ -316,9 +317,17 @@ function loads_hidroplants(input_folder::String)
         else
             irrigation = zeros(12)
         end
+
+        if name in [name[1:end-4] for name in readdir(joinpath(input_folder,"wait_data"))]
+            wait_vol = vec(readdlm(joinpath(input_folder,"wait_data",name*".csv"), '\t', Float64))
+        else
+            wait_vol = "nothing"
+        end
         
         if name in [name[1:end-4] for name in readdir(joinpath(input_folder,"generation_data"))]
             poly_generation = _generation_regression(input_folder,name)
+        elseif (name == "fontes_bc" || name == "fontes_a") && "fontes" in [name[1:end-4] for name in readdir(joinpath(input_folder,"generation_data"))]
+            poly_generation = _generation_regression(input_folder,"fontes")
         else
             poly_generation = "nothing"
         end
@@ -361,6 +370,7 @@ function loads_hidroplants(input_folder::String)
             poly_volume_quote = poly_volume_quote,
             poly_quote_area = poly_quote_area,
             poly_generation = poly_generation,
+            wait_vol = wait_vol,
             area = df[i,"area"]
         )
     end
@@ -371,18 +381,26 @@ end
 Will balance every plant's reservoir for next timestep and update its registries.
 """
 function updates_registries(hidroplants::Dict, incremental_natural_flows::Dict,step::Int64)
+    fontes_reservoir = hidroplants["fontes_a"].reservoir + hidroplants["fontes_bc"].reservoir
     month = mod(step, 12) == 0 ? 12 : mod(step, 12)
-    for (_, plant) in hidroplants
+    for (name, plant) in hidroplants
         push!(plant.spill_timeline, plant.spilling)
         push!(plant.turbine_timeline, plant.turbining)
         push!(plant.reservoir_timeline, plant.reservoir)
         push!(plant.inflow_timeline, plant.inflow)
         push!(plant.evaporation_timeline, hm3_per_month_to_m3_per_sec(plant.evaporation,month))
         if plant.poly_generation != "nothing"
-            poly = plant.poly_generation
-            generation = poly[1] + poly[2]*plant.turbining + poly[3]*plant.reservoir
-            generation = generation >= 0 ? generation : 0.0
-            push!(plant.generation_timeline, generation)
+            if name == "fontes_a" || name == "fontes_bc"
+                poly = plant.poly_generation
+                generation = poly[1] + poly[2]*plant.turbining + poly[3]*fontes_reservoir
+                generation = generation >= 0 ? generation : 0.0
+                push!(plant.generation_timeline, generation)
+            else
+                poly = plant.poly_generation
+                generation = poly[1] + poly[2]*plant.turbining + poly[3]*plant.reservoir
+                generation = generation >= 0 ? generation : 0.0
+                push!(plant.generation_timeline, generation)
+            end
         else
             push!(plant.generation_timeline, plant.turbining*plant.generation_coef)
         end
@@ -696,8 +714,11 @@ end
 Update Paraibuna do Sul depletion status according to ANA resolution.
 """
 function paraibuna_do_sul_depletion_update(hidroplants::Dict,month::Int64,previous_stage::Int64,filling_mode::Int64)
-    wait_vol = [658.403, 698.333, 788.175, 888, 888, 888, 888, 888, 888, 888, 748.245, 618.473]
-    hidroplants["funil"].max_reservoir = wait_vol[month]
+    for (_,plant) in hidroplants
+        if plant.wait_vol != "nothing"
+            plant.max_reservoir = plant.wait_vol[month]
+        end
+    end
     if filling_mode == 2
         if previous_stage == 2 && (0.7*(1+0.05) >= reservoir_status("sta_branca",hidroplants) || 0.8*(1+0.05) >= reservoir_status("paraibuna",hidroplants) || 0.8*(1+0.05) >= reservoir_status("jaguari",hidroplants))
             skip_to = 2

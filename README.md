@@ -40,6 +40,7 @@ Em seguida, serão explicadas pastas que contém dados que são utilizados como 
 * `flow_data`: dados históricos de vazão natural para serem utilizados na simulação de maneira determinística. Dados estão dispostos, para cada usina, em um arquivo CSV com colunas correspondendo a meses (ordenado de 1 a 12) e linhas a anos (ordem crescente), em `m^3/s`. Caso o arquivo esteja ausente, os valores para usina serão considerados zero.
 * `generation_data`: os arquivos CSV nessa pasta seguem o modelo de arquivo de saída do SUISHI, pois são, de fato, exatamente isso. Apesar dos arquivos estarem completos por fins de simplicidade, apenas as colunas `QTUR` (vazão turbinada em `m^3/s`), `VOLF` (volume final em `Hm^3`) e `GHID` (geração em `MW`) são consideradas na prática.
 * `irrigation_data`: arquivos CSV contendo dados referentes ao uso consuntivo para cada usina, dispostos para cada mês em uma linha (ordenado de 1 a 12) em `m^3/s`. Caso o arquivo esteja ausente, os valores para usina serão considerados zero.
+* `wait_data`: arquivos CSV contendo dados do volume de espera para cada usina, dispostos para cada mês em uma linha (ordenado de 1 a 12) em `Hm^3`. Caso o arquivo esteja ausente, será considerado sempre os volumes máximos.
 
 Outros arquivos com dados de entrada na pasta `input_data` são `hidroplants_params.csv` e `topology.csv`.
 
