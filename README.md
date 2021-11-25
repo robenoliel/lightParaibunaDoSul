@@ -140,15 +140,15 @@ Após o prompt ser aberto, retorne para o explorador de arquivos e copie o camin
 
 De volta no prompt, digite "cd", dê um espaço, e cole o caminho copiado teclando `Ctrl`+`V`, então, tecle `Enter`:
 
-![rep_page](/figures/cd_page.jpg)
+```
+C:\> cd C:\simulatorParaibaDoSul.jl-master
+```
 
 Por fim, digite o comando abaixo e aperte `Enter` (tenha certeza que nenhum dos arquivos que será editado pelo programa esteja aberto, isto é, arquivos da pasta `results`):
 
 ```
 julia --project run.jl "example"
 ```
-
-![rep_page](/figures/sim_page.png)
 
 Alternativamente, o parâmetro `"example"` poderá ser substituído por qualquer que seja o caminho para o diretório do projeto.
 
