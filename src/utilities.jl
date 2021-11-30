@@ -670,9 +670,6 @@ function operates_sta_cecilia_plant(hidroplants::Dict,incremental_natural_flows:
     month = mod(step, 12) == 0 ? 12 : mod(step, 12)
 
     if paraibuna_do_sul_equivalent_reservoir_status(hidroplants) >= 0.8 && eighty_policiy
-        @show inflow
-        total_reservoir = hidroplants["funil"].reservoir + hidroplants["sta_branca"].reservoir + hidroplants["paraibuna"].reservoir + hidroplants["jaguari"].reservoir
-        @show total_reservoir
         excess = hm3_per_month_to_m3_per_sec(reservoir,month) + hm3_per_month_to_m3_per_sec(inflow,month) - max_spillage - max_turbining - hm3_per_month_to_m3_per_sec(max_reservoir,month)
         excess = excess > 0 ? 0.0 : excess
         ask_previous_plants("sta_cecilia",hidroplants,m3_per_sec_to_hm3_per_month((-1)*excess,month),month;stage = stage)
@@ -681,11 +678,6 @@ function operates_sta_cecilia_plant(hidroplants::Dict,incremental_natural_flows:
     updates_inflow("sta_cecilia", hidroplants, incremental_natural_flows, step)
     inflow =  hidroplants["sta_cecilia"].inflow
     excess = hm3_per_month_to_m3_per_sec(reservoir,month) + hm3_per_month_to_m3_per_sec(inflow,month) - min_spillage - min_turbining - hm3_per_month_to_m3_per_sec(max_reservoir,month)
-    
-    @show inflow
-    total_reservoir = hidroplants["funil"].reservoir + hidroplants["sta_branca"].reservoir + hidroplants["paraibuna"].reservoir + hidroplants["jaguari"].reservoir
-    @show total_reservoir
-    @show total_reservoir
 
     if excess < 0
         ask_previous_plants("sta_cecilia",hidroplants,m3_per_sec_to_hm3_per_month((-1)*excess,month),month;stage = stage,filling_mode = filling_mode)
