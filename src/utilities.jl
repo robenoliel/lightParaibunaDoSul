@@ -115,81 +115,7 @@ function run_simulation(case_name::String;verbose::Bool = true)
         end
     end
 
-    if !isdir(joinpath(case_name,"results"))
-        mkdir(joinpath(case_name,"results"))
-    end
-
-    df_reservoir = DataFrame(
-        step = 1:timesteps,
-        month = months,
-        stage = depletion_stages,
-        ps_equivalent_reservoir = equivalent_reservoir
-    )
-    df_irrigation = DataFrame(
-        step = 1:timesteps,
-        month = months,
-        stage = depletion_stages,
-        ps_equivalent_reservoir = equivalent_reservoir
-    )
-    df_turbining = DataFrame(
-        step = 1:timesteps,
-        month = months,
-        stage = depletion_stages,
-        ps_equivalent_reservoir = equivalent_reservoir
-    )
-    df_spillage = DataFrame(
-        step = 1:timesteps,
-        month = months,
-        stage = depletion_stages,
-        ps_equivalent_reservoir = equivalent_reservoir
-    )
-    df_incremental_flows = DataFrame(
-        step = 1:timesteps,
-        month = months,
-        stage = depletion_stages,
-        ps_equivalent_reservoir = equivalent_reservoir
-    )
-    df_generation = DataFrame(
-        step = 1:timesteps,
-        month = months,
-        stage = depletion_stages,
-        ps_equivalent_reservoir = equivalent_reservoir
-    )
-    df_evaporation = DataFrame(
-        step = 1:timesteps,
-        month = months,
-        stage = depletion_stages,
-        ps_equivalent_reservoir = equivalent_reservoir
-    )
-
-    for (name, plant) in hidroplants
-
-        df_reservoir[!,name] = plant.reservoir_timeline
-        df_irrigation[!,name] = repeat(plant.irrigation, outer = years+1)[1:timesteps]
-        df_turbining[!,name] = plant.turbine_timeline
-        df_spillage[!,name] = plant.spill_timeline
-        df_incremental_flows[!,name] = incremental_natural_flows[name]
-        df_generation[!,name] = plant.generation_timeline
-        df_evaporation[!,name] = plant.evaporation_timeline
-
-    end
-
-    if findlast("\\",case_name) !== nothing || findlast("/",case_name) !== nothing
-        if findlast("\\",case_name) !== nothing && findlast("/",case_name) !== nothing
-            bar_pos = findlast("\\",case_name) > findlast("/",case_name) ? findlast("\\",case_name) : findlast("/",case_name)
-        else
-            bar_pos = findlast("\\",case_name) !== nothing ? findlast("\\",case_name) : findlast("/",case_name)
-        end
-        name = case_name[bar_pos[end]+1:end]
-    else
-        name = case_name
-    end
-    CSV.write(joinpath(case_name,"results",name*"_reservoir_hm3.csv"),df_reservoir)
-    CSV.write(joinpath(case_name,"results",name*"_turbining_m3_per_sec.csv"),df_turbining)
-    CSV.write(joinpath(case_name,"results",name*"_spillage_m3_per_sec.csv"),df_spillage)
-    CSV.write(joinpath(case_name,"results",name*"_incremental_flow_m3_per_sec.csv"),df_incremental_flows)
-    CSV.write(joinpath(case_name,"results",name*"_generation_MW.csv"),df_generation)
-    CSV.write(joinpath(case_name,"results",name*"_evaporation_m3_per_sec.csv"),df_evaporation)
+    writes_output_files(hidroplants,case_name,incremental_natural_flows,timesteps,months,depletion_stages,equivalent_reservoir,years)
 
     out = "Simulation complete, results available at: $(case_name)/results"
     println(out)
@@ -648,7 +574,7 @@ function ask_previous_plants(name::Union{String15,String},hidroplants::Dict,valu
             return extra_acquired
         end
     end
-    if name == "sta_cecilia" && (reservoir_status("funil",hidroplants) > 0 || reservoir_status("sta_branca",hidroplants) > 0 || reservoir_status("jaguari",hidroplants) > 0) && hidroplants["paraibuna"].reservoir > hidroplants["paraibuna"].min_reservoir - 425
+    if name == "sta_cecilia" && (reservoir_status("funil",hidroplants) > 0 || reservoir_status("sta_branca",hidroplants) > 0 || reservoir_status("jaguari",hidroplants) > 0) && hidroplants["paraibuna"].reservoir < hidroplants["paraibuna"].min_reservoir - 420
         last_resource = ask_previous_plants("sta_cecilia",hidroplants,start_value - extra_acquired,month,complete_depletion = true)
     end
     return extra_acquired
@@ -756,6 +682,113 @@ function paraibuna_do_sul_depletion_update(hidroplants::Dict,month::Int64,previo
         end
     end
     return stage
+end
+
+function writes_output_files(hidroplants::Dict,case_name::String,incremental_natural_flows,timesteps,months,depletion_stages,equivalent_reservoir,years)    
+    
+    if !isdir(joinpath(case_name,"results"))
+        mkdir(joinpath(case_name,"results"))
+    end
+
+    if !isdir(joinpath(case_name,"results","violations"))
+        mkdir(joinpath(case_name,"results","violations"))
+    end
+
+    df_reservoir = DataFrame(
+        step = 1:timesteps,
+        month = months,
+        stage = depletion_stages,
+        ps_equivalent_reservoir = equivalent_reservoir
+    )
+    df_irrigation = DataFrame(
+        step = 1:timesteps,
+        month = months,
+        stage = depletion_stages,
+        ps_equivalent_reservoir = equivalent_reservoir
+    )
+    df_turbining = DataFrame(
+        step = 1:timesteps,
+        month = months,
+        stage = depletion_stages,
+        ps_equivalent_reservoir = equivalent_reservoir
+    )
+    df_spillage = DataFrame(
+        step = 1:timesteps,
+        month = months,
+        stage = depletion_stages,
+        ps_equivalent_reservoir = equivalent_reservoir
+    )
+    df_incremental_flows = DataFrame(
+        step = 1:timesteps,
+        month = months,
+        stage = depletion_stages,
+        ps_equivalent_reservoir = equivalent_reservoir
+    )
+    df_generation = DataFrame(
+        step = 1:timesteps,
+        month = months,
+        stage = depletion_stages,
+        ps_equivalent_reservoir = equivalent_reservoir
+    )
+    df_evaporation = DataFrame(
+        step = 1:timesteps,
+        month = months,
+        stage = depletion_stages,
+        ps_equivalent_reservoir = equivalent_reservoir
+    )
+    df_reservoir_violations = DataFrame(
+        step = 1:timesteps,
+        month = months,
+        stage = depletion_stages,
+        ps_equivalent_reservoir = equivalent_reservoir
+    )
+    df_turbining_violations = DataFrame(
+        step = 1:timesteps,
+        month = months,
+        stage = depletion_stages,
+        ps_equivalent_reservoir = equivalent_reservoir
+    )
+    df_spillage_violations = DataFrame(
+        step = 1:timesteps,
+        month = months,
+        stage = depletion_stages,
+        ps_equivalent_reservoir = equivalent_reservoir
+    )
+
+    for (name, plant) in hidroplants
+
+        df_reservoir[!,name] = plant.reservoir_timeline
+        df_irrigation[!,name] = repeat(plant.irrigation, outer = years+1)[1:timesteps]
+        df_turbining[!,name] = plant.turbine_timeline
+        df_spillage[!,name] = plant.spill_timeline
+        df_incremental_flows[!,name] = incremental_natural_flows[name]
+        df_generation[!,name] = plant.generation_timeline
+        df_evaporation[!,name] = plant.evaporation_timeline
+        df_reservoir_violations[!,name] = [v < plant.min_reservoir ? plant.min_reservoir - v : 0.0 for v in plant.reservoir_timeline]
+        df_turbining_violations[!,name] = [v < plant.min_turbining ? plant.min_turbining - v : 0.0 for v in plant.turbine_timeline]
+        df_spillage_violations[!,name] = [v < plant.min_spillage ? plant.min_spillage - v : 0.0 for v in plant.spill_timeline]
+
+    end
+
+    if findlast("\\",case_name) !== nothing || findlast("/",case_name) !== nothing
+        if findlast("\\",case_name) !== nothing && findlast("/",case_name) !== nothing
+            bar_pos = findlast("\\",case_name) > findlast("/",case_name) ? findlast("\\",case_name) : findlast("/",case_name)
+        else
+            bar_pos = findlast("\\",case_name) !== nothing ? findlast("\\",case_name) : findlast("/",case_name)
+        end
+        name = case_name[bar_pos[end]+1:end]
+    else
+        name = case_name
+    end
+    CSV.write(joinpath(case_name,"results",name*"_reservoir_hm3.csv"),df_reservoir)
+    CSV.write(joinpath(case_name,"results",name*"_turbining_m3_per_sec.csv"),df_turbining)
+    CSV.write(joinpath(case_name,"results",name*"_spillage_m3_per_sec.csv"),df_spillage)
+    CSV.write(joinpath(case_name,"results",name*"_incremental_flow_m3_per_sec.csv"),df_incremental_flows)
+    CSV.write(joinpath(case_name,"results",name*"_generation_MW.csv"),df_generation)
+    CSV.write(joinpath(case_name,"results",name*"_evaporation_m3_per_sec.csv"),df_evaporation)
+    CSV.write(joinpath(case_name,"results","violations",name*"_reservoir_violations_hm3.csv"),df_reservoir_violations)
+    CSV.write(joinpath(case_name,"results","violations",name*"_turbining_violations_m3_per_sec.csv"),df_turbining_violations)
+    CSV.write(joinpath(case_name,"results","violations",name*"_spillage_violations_m3_per_sec.csv"),df_spillage_violations)
 end
 
 "File with utility methods for simulating Paraiba do Sul"
