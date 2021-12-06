@@ -104,7 +104,6 @@ function run_simulation(case_name::String;verbose::Bool = true)
         push!(depletion_stages,stage)
         push!(equivalent_reservoir, paraibuna_do_sul_equivalent_reservoir_status(hidroplants))
         updates_registries(hidroplants, incremental_natural_flows, step)
-
         if verbose
             if step != 1
                 print("\u1b[1F")
@@ -177,6 +176,7 @@ function _generation_regression(input_folder::String,name::Union{String,String15
         df_generation = DataFrame(CSV.File(file_path))[:,["QTURB","VOLF","GHIDR"]]
         fm = @formula(GHIDR ~ QTURB + VOLF)
         sm = lm(fm, df_generation)
+        
         return coef(sm)
     end
     
@@ -694,6 +694,8 @@ function writes_output_files(hidroplants::Dict,case_name::String,incremental_nat
         mkdir(joinpath(case_name,"results","violations"))
     end
 
+    generates_cfur(hidroplants,case_name)
+
     df_reservoir = DataFrame(
         step = 1:timesteps,
         month = months,
@@ -789,6 +791,46 @@ function writes_output_files(hidroplants::Dict,case_name::String,incremental_nat
     CSV.write(joinpath(case_name,"results","violations",name*"_reservoir_violations_hm3.csv"),df_reservoir_violations)
     CSV.write(joinpath(case_name,"results","violations",name*"_turbining_violations_m3_per_sec.csv"),df_turbining_violations)
     CSV.write(joinpath(case_name,"results","violations",name*"_spillage_violations_m3_per_sec.csv"),df_spillage_violations)
+end
+
+function generates_cfur(hidroplants::Dict,case_name::String)
+    file_path = joinpath(case_name,"cfur.csv")
+    df = DataFrame(CSV.File(file_path))
+    results = DataFrame()
+    for (name, plant) in hidroplants
+        if name in df[!,"name"]
+            mean_generation = mean(plant.generation_timeline)*31*24
+            factor = 0.07 * 76 * 0.0625
+            values = Dict(
+                "name" => name,
+                "mean_generation" => mean_generation,
+                "estado" => mean_generation*factor*0.25,
+                "federacao" => mean_generation*factor*0.1,
+                "municipio" => mean_generation*factor*0.75
+            )
+            if name == "fontes_a" || name == "fontes_bc"
+                row = filter(r -> r["name"] == "fontes", df)
+            else
+                row = filter(r -> r["name"] == name, df)
+            end
+            for municipio in [name for name in names(df) if name != "name"]
+                values[municipio] = mean_generation*factor*0.75*row[!,municipio][1]
+            end
+            push!(results,values,cols = :union)
+        end
+    end
+    select!(results, :name,:mean_generation,:estado,:federacao, Not([:name,:mean_generation,:estado,:federacao]))
+    if findlast("\\",case_name) !== nothing || findlast("/",case_name) !== nothing
+        if findlast("\\",case_name) !== nothing && findlast("/",case_name) !== nothing
+            bar_pos = findlast("\\",case_name) > findlast("/",case_name) ? findlast("\\",case_name) : findlast("/",case_name)
+        else
+            bar_pos = findlast("\\",case_name) !== nothing ? findlast("\\",case_name) : findlast("/",case_name)
+        end
+        name = case_name[bar_pos[end]+1:end]
+    else
+        name = case_name
+    end
+    CSV.write(joinpath(case_name,"results",name*"_cfur.csv"),results)
 end
 
 "File with utility methods for simulating Paraiba do Sul"
