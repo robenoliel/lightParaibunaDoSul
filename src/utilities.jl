@@ -800,7 +800,7 @@ function generates_cfur(hidroplants::Dict,case_name::String)
     for (name, plant) in hidroplants
         if name in df[!,"name"]
             mean_generation = mean(plant.generation_timeline)*31*24
-            factor = 0.07 * 76 * 0.0625
+            factor = 76 * 0.0625
             values = Dict(
                 "name" => name,
                 "mean_generation" => mean_generation,

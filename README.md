@@ -61,7 +61,7 @@ O arquivo `hidroplants_params.csv` contém (e **deverá sempre conter**) parâme
 
 Para fins práticos, medidas sem limite mínimo são definidas como zero, e sem limite máximo como 99999.
 
-Já o arquivo `topology.csv` determina uma usina e quem está a sua jusante, por `plant` e `downstream`, respectivamente.
+O arquivo `topology.csv` determina uma usina e quem está a sua jusante, por `plant` e `downstream`, respectivamente. `cfur.csv`, por sua vez, contém as parcelas de distribuição de Compensação Financeira pelo Uso de Recursos para os municípios com áreas alagadas calculados na simulação com base em `TAR = 76 R$/MWh`.
 
 ## Metodologia
 
@@ -165,6 +165,7 @@ Nessa pasta, os resultados estarão agregados por variável em arquivos CSV. Est
 * `reservoir_Hm3`: resultados de reservatório, em `Hm^3`.
 * `spillage_m3_per_sec`: resultados de vertimento, em `m^3/s`.
 * `turbining_m3_per_sec`: resultados de turbinamento, em `m^3/s`.
+* `cfur`: valores calculados para Compensação Financeira pelo Uso de Recursos, em `R$`.
 
 Nos arquivos de resultado, além das variáveis específicas de cada arquivo, estão disponíveis as colunas:
 * `step`: estágio da simulação.
